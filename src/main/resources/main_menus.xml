@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipower verion="1.0" xmlns="http://ipower.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ipower.org/ iPowerSchema.xsd ">
+  <system id="PAS00000000000000000000000000000" sign="ipower.studentworks" name="学生作业管理系统" description="学生作业管理系统">
+  	<module id="PAS00000000000000000000000000001" name="系统设置" uri="" order="1">
+  		<module id="PAS00000000000000000000000000101" name="接入管理" uri="" order="1"/>
+  		<module id="PAS00000000000000000000000000201" name="评价规则管理" uri="" order="2">
+  			<module id="PAS00000000000000000000000010201" name="规则应用" uri="" order="1"/>
+  		</module>
+  		<module id="PAS00000000000000000000000000301" name="要点与目录" uri="" order="3">
+  			<module id="PAS00000000000000000000000010301" name="知识技能要点" uri="" order="1"/>
+  			<module id="PAS00000000000000000000000020301" name="课程目录" uri="" order="2"/>
+  		</module>
+  		<module id="PAS00000000000000000000000000401" name="教师/班级" uri="" order="4"/>
+  	</module>
+  	<module id="PAS00000000000000000000000000002" name="数据维护" uri="" order="2">
+  		<module id="PAS00000000000000000000000000102" name="学校数据" uri="/mgr/unit.action" order="1"/>
+  		<module id="PAS00000000000000000000000000202" name="年级数据" uri="/mgr/grade.action" order="2"/>
+  		<module id="PAS00000000000000000000000000302" name="教师数据" uri="" order="3"/>
+  		<module id="PAS00000000000000000000000000402" name="班级数据" uri="" order="4"/>
+  		<module id="PAS00000000000000000000000000502" name="学生数据" uri="" order="5"/>
+  	</module>
+  	<module id="PAS00000000000000000000000000003" name="作业管理" uri="" order="3">
+  		<module id="PAS00000000000000000000000000103" name="学生作业" uri="" order="1"/>
+  		<module id="PAS00000000000000000000000000303" name="发布设置" uri="" order="2"/>
+  		<module id="PAS00000000000000000000000000503" name="评论汇总" uri="" order="3"/>
+  	</module>
+  </system>
+</ipower>

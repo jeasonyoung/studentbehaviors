@@ -1,0 +1,234 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.ipower</groupId>
+  <artifactId>edu.behaviors</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>student behavior System</name>
+  <description>学生日常行为管理系统</description>
+  <url>http://maven.apache.org</url>
+  <!--maven repo-->
+  <repositories>
+  	<!--apache maven repo-->
+  	<repository>
+  		<id>apache_maven_repo</id>
+  		<name>apache maven center repository</name>
+  		<url>http://repo2.maven.org/maven2</url>
+  		<layout>default</layout>
+  	</repository>
+  	<!--alibaba opensource-->
+  	<repository>
+  		<id>alibaba_opensource</id>
+  		<name>alibaba opensource</name>
+  		<url>http://code.alibabatech.com/mvn/releases/</url>
+  		<layout>default</layout>
+  	</repository>
+  	<!--alibaba opensource snapshot-->
+  	<repository>
+  		<id>alibaba_opensource_snapshot</id>
+  		<name>alibaba opensource snapshot</name>
+  		<url>http://code.alibabatech.com/mvn/snapshots/</url>
+  		<layout>default</layout>
+  	</repository>
+  </repositories>
+  
+  <!--定义参数变量-->
+  <properties>
+  	<java.version>1.7</java.version>
+  	<encoding>UTF-8</encoding>
+  	<spring.version>3.2.4.RELEASE</spring.version>
+  	<struts.version>2.3.15.1</struts.version>
+  	<hibernate.version>4.2.4.Final</hibernate.version>
+  </properties>
+  
+  <!--项目依赖 -->
+  <dependencies>
+  	<!--servlet-->
+  	<dependency>
+  		<groupId>javax.servlet</groupId>
+  		<artifactId>jstl</artifactId>
+  		<version>1.2</version>
+  	</dependency>
+  	<dependency>
+	    <groupId>javax.servlet.jsp</groupId>
+	    <artifactId>jsp-api</artifactId>
+	    <version>2.2.1-b03</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>servlet-api</artifactId>
+	    <version>2.5</version>
+	    <scope>provided</scope>
+	</dependency>
+	<!--log -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-api</artifactId>
+	    <version>1.7.5</version>
+	</dependency>
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.17</version>
+	</dependency>
+	<!--druid-->
+  	<dependency>
+  		<groupId>com.alibaba</groupId>
+  		<artifactId>druid</artifactId>
+  		<version>0.2.9</version>
+  	</dependency>
+  	<!--aspectjweaver-->
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjweaver</artifactId>
+	    <version>1.7.3</version>
+	</dependency>
+	<!--缩略图-->
+	<dependency>
+	    <groupId>net.coobird</groupId>
+	    <artifactId>thumbnailator</artifactId>
+	    <version>0.4.5</version>
+	</dependency>
+	<!--fastJson-->
+  	<dependency>
+  		<groupId>com.alibaba</groupId>
+  		<artifactId>fastjson</artifactId>
+  		<version>1.1.24</version>
+  	</dependency>
+	<!--test junit -->
+    <dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.11</version>
+	    <scope>test</scope>
+	</dependency>
+	
+	<!--spring-->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-expression</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	
+	<!--struts -->
+	<dependency>
+		<groupId>org.apache.struts</groupId>
+		<artifactId>struts2-core</artifactId>
+		<version>${struts.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>javassist</groupId>
+				<artifactId>javassist</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+    	<groupId>org.apache.struts</groupId>
+    	<artifactId>struts2-spring-plugin</artifactId>
+    	<version>${struts.version}</version>
+    </dependency>
+    <!--struts2-sitemesh-plugin -->
+	<dependency>
+    	<groupId>org.apache.struts</groupId>
+    	<artifactId>struts2-sitemesh-plugin</artifactId>
+    	<version>${struts.version}</version>
+    </dependency>
+    
+    <!--hibernate -->
+	<dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-core</artifactId>
+    	<version>${hibernate.version}</version>
+    </dependency>
+    
+    <!-- mysql数据库驱动 -->
+  	<dependency>
+  		<groupId>mysql</groupId>
+  		<artifactId>mysql-connector-java</artifactId>
+  		<version>5.1.26</version>
+  	</dependency>
+  	<!--sql server数据库驱动-->
+  	<dependency>
+  		<groupId>net.sourceforge.jtds</groupId>
+  		<artifactId>jtds</artifactId>
+  		<version>1.3.1</version>
+  	</dependency>
+  	
+  	<!-- 项目依赖 -->    
+  	<dependency>
+  		<groupId>org.ipower</groupId>
+  		<artifactId>ipowerKit</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	    
+  </dependencies>
+  
+  <!--构建编译-->
+  <build>
+    <finalName>studentbehaviors</finalName>
+    <plugins>
+    	<!--war -->
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-war-plugin</artifactId>
+    		<version>2.4</version>
+    	</plugin>
+    	<!--编译插件 -->
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-compiler-plugin</artifactId>
+    		<version>3.1</version>
+    		<configuration>
+    			<source>${java.version}</source>
+    			<target>${java.version}</target>
+    			<encoding>${encoding}</encoding>
+    		</configuration>
+    	</plugin>
+    	<!--源码插件 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>2.6</version>
+			<configuration>
+				<encoding>${encoding}</encoding>
+			</configuration>
+		</plugin>
+		<!--javadoc插件-->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+			<version>2.9.1</version>
+			<configuration>
+				<encoding>${encoding}</encoding>
+			</configuration>
+		</plugin>
+    </plugins>
+  </build>
+</project>
