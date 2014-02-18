@@ -8,31 +8,7 @@
   <name>student behavior System</name>
   <description>学生日常行为管理系统</description>
   <url>http://maven.apache.org</url>
-  <!--maven repo-->
-  <repositories>
-  	<!--apache maven repo-->
-  	<repository>
-  		<id>apache_maven_repo</id>
-  		<name>apache maven center repository</name>
-  		<url>http://repo2.maven.org/maven2</url>
-  		<layout>default</layout>
-  	</repository>
-  	<!--alibaba opensource-->
-  	<repository>
-  		<id>alibaba_opensource</id>
-  		<name>alibaba opensource</name>
-  		<url>http://code.alibabatech.com/mvn/releases/</url>
-  		<layout>default</layout>
-  	</repository>
-  	<!--alibaba opensource snapshot-->
-  	<repository>
-  		<id>alibaba_opensource_snapshot</id>
-  		<name>alibaba opensource snapshot</name>
-  		<url>http://code.alibabatech.com/mvn/snapshots/</url>
-  		<layout>default</layout>
-  	</repository>
-  </repositories>
-  
+ 
   <!--定义参数变量-->
   <properties>
   	<java.version>1.7</java.version>
