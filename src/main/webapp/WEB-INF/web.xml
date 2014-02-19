@@ -3,34 +3,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name>Students Works</display-name>
   <description>学生日常行为管理系统</description>
-  
-  	<!--上传附件 -->
-	<servlet>
-		<servlet-name>UploadFileServlet</servlet-name>
-		<servlet-class>ipower.servlets.CKEditorUploadServlet</servlet-class>
-		<init-param>
-			<param-name>debug</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>enabled</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>baseDir</param-name>
-			<param-value>/upload/</param-value>
-		</init-param>
-		<init-param>
-			<param-name>AllowedExtensionsFile</param-name>
-			<param-value>jpg|jpeg|gif|bmp|png</param-value>
-		</init-param>
-		<load-on-startup>0</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>UploadFileServlet</servlet-name>
-		<url-pattern>/servlet/UploadFileServlet</url-pattern>
-	</servlet-mapping>
-  
   <!--druid监控页面，使用${pageContext.request.contextPath}/druid/index.html访问-->
   <servlet>
   	<servlet-name>druidStatView</servlet-name>

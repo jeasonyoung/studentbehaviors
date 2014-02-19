@@ -3,12 +3,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	
 	<!--菜单服务-->
-	<bean id="MenuService" class="ipower.studentworks.service.impl.MenuServiceImpl"> 
+	<bean id="MenuService" class="ipower.studentbehaviors.service.impl.MenuServiceImpl"> 
 		<property name="menuFile" value="main_menus.xml"/>
-	</bean>
-	<!--学校单位服务-->
-	<bean id="UnitService" class="ipower.studentworks.service.impl.UnitServiceImpl">
-		<property name="unitDao" ref="UnitDao"/>
 	</bean>
 	
 </beans>

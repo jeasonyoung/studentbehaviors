@@ -2,11 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<!--首页 -->
-	<bean name="IndexAction" class="ipower.studentworks.action.IndexAction"/>
+	<bean name="IndexAction" class="ipower.studentbehaviors.action.IndexAction"/>
 	<!--菜单-->
-	<bean name="MenuAction" class="ipower.studentworks.action.MenuAction">
+	<bean name="MenuAction" class="ipower.studentbehaviors.action.MenuAction">
 		<property name="menuService" ref="MenuService"/>
 	</bean>
 	<!--druid -->
-	<bean name="DruidAction" class="ipower.studentworks.action.DataSourceAction"/>
+	<bean name="DruidAction" class="ipower.studentbehaviors.action.DataSourceAction"/>
 </beans>

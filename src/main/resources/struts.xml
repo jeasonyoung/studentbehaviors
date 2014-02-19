@@ -17,8 +17,8 @@
 	<!--上传文件大小限制设置-->
 	<constant name="struts.multipart.maxSize" value="-1"/>
 	<!--文件common-upload上传处理。 -->
-	<bean name="uploadRequestParser" type="org.apache.struts2.dispatcher.multipart.MultiPartRequest" class="ipower.wrappers.RequestParseWrapper" scope="default" optional="true" />
-	<constant name="struts.multipart.handler" value="uploadRequestParser"/>
+	<!-- <bean name="uploadRequestParser" type="org.apache.struts2.dispatcher.multipart.MultiPartRequest" class="ipower.wrappers.RequestParseWrapper" scope="default" optional="true" />
+	<constant name="struts.multipart.handler" value="uploadRequestParser"/> -->
 	<!--主题-->
 	<constant name="struts.ui.theme" value="simple"/>
 
