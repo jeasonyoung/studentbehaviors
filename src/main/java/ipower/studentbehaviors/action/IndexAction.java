@@ -1,17 +1,28 @@
 package ipower.studentbehaviors.action;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import ipower.configuration.ModuleSystem;
+import ipower.studentbehaviors.service.IMenuService;
+
 /**
  * 默认页面Action.
  * @author 杨勇.
  * @since 2013-11-27.
  * */
 public class IndexAction extends BaseAction {
-	private String systemId,moduleId;
+	private static Map<String,String> cache = Collections.synchronizedMap(new HashMap<String,String>());
+	private IMenuService menuService;
+	private String systemId,systemName;
 	/**
-	 * 获取系统ID。
-	 * @return 系统ID。
+	 * 设置菜单服务。
+	 * @param menuService
+	 * 菜单服务。
 	 * */
-	public String getSystemId() {
-		return systemId;
+	public void setMenuService(IMenuService menuService) {
+		this.menuService = menuService;
 	}
 	/**
 	 * 设置系统ID。
@@ -22,25 +33,29 @@ public class IndexAction extends BaseAction {
 		this.systemId = systemId;
 	}
 	/**
-	 * 获取模块ID。
-	 * @return 模块ID。
+	 * 获取系统名称。
+	 * @return 系统名称。
 	 * */
-	public String getModuleId() {
-		return moduleId;
-	}
-	/**
-	 * 设置模块ID。
-	 * @param moduleId
-	 * 	设置模块ID。
-	 * */
-	public void setModuleId(String moduleId) {
-		this.moduleId = moduleId;
+	public String getSystemName() {
+		return systemName;
 	}
 	/**
 	 * 默认输出。
 	 * */
 	@Override
 	public String execute() throws Exception{
+		if(this.menuService != null && this.systemId != null && !this.systemId.trim().isEmpty()){
+			this.systemName = cache.get(this.systemId);
+			if(this.systemName == null || !this.systemName.trim().isEmpty()){
+				ModuleSystem ms = this.menuService.loadModuleSystem(this.systemId);
+				if(ms != null){
+					this.systemName = ms.getName();
+					if(this.systemName != null && !this.systemName.trim().isEmpty()){
+						cache.put(this.systemId, this.systemName);
+					}
+				}
+			}
+		}
 		return SUCCESS;
 	}
 	/**

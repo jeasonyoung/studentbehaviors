@@ -11,8 +11,6 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/jquery-easyui/themes/icon.css" type="text/css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/jquery-easyui/themes/default/easyui.css" type="text/css"/>
 		
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css" type="text/css"/>
-		
 		<!--[if lt IE 9]>
 			<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/jquery-easyui/jquery-1.9.1.min.js"></script>
 		<![endif]-->
@@ -26,7 +24,7 @@
 		<decorator:head/>
 		<base target="_self"/>
 		<title>
-			<decorator:title default="财务分摊系统"/>
+			<decorator:title/>
 		</title>
 	</head>
 	

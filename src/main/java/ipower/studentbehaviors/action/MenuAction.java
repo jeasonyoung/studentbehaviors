@@ -1,8 +1,16 @@
 package ipower.studentbehaviors.action;
 
-import ipower.studentbehaviors.service.IMenuService;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ipower.configuration.ModuleDefine;
+import ipower.configuration.ModuleSystem;
+import ipower.model.TreeNode;
+import ipower.studentbehaviors.service.IMenuService;
 
 /**
  * 菜单服务Action。
@@ -11,7 +19,8 @@ import java.io.IOException;
  * */
 public class MenuAction extends BaseAction {
 	private IMenuService menuService;
-	private String systemId,moduleId;
+	private String systemId;
+	private static Map<String,List<TreeNode>> mapNodesCache = Collections.synchronizedMap(new HashMap<String,List<TreeNode>>());
 	/**
 	 * 设置菜单服务。
 	 * @param menuService
@@ -29,29 +38,53 @@ public class MenuAction extends BaseAction {
 		this.systemId = systemId;
 	}
 	/**
-	 * 设置模块ID。
-	 * @param moduleId
-	 *  模块ID。
-	 * */
-	public void setModuleId(String moduleId) {
-		this.moduleId = moduleId;
-	}
-	/**
-	 * 系统信息。
+	 * 输出菜单树。
 	 * @throws IOException 
 	 * */
-	public void system() throws IOException{
+	public void tree() throws IOException{
+		List<TreeNode> treeNodeList = null;
 		if(this.menuService != null && (this.systemId != null && !this.systemId.trim().isEmpty())){
-			this.writeJson(this.menuService.loadModuleSystem(this.systemId));
+			treeNodeList = mapNodesCache.get(this.systemId);
+			if(treeNodeList == null || treeNodeList.size() == 0){
+				treeNodeList = new ArrayList<>();
+				ModuleSystem ms = this.menuService.loadModuleSystem(this.systemId);
+				if(ms != null && ms.getModules() != null && ms.getModules().size() > 0){
+					for(int i = 0; i < ms.getModules().size(); i++){
+						TreeNode node = this.createTreeNode(ms.getModules().item(i));
+						if(node != null) treeNodeList.add(node);
+					}
+				}
+				//缓存数据。
+				if(treeNodeList != null && treeNodeList.size() > 0){
+					mapNodesCache.put(this.systemId, treeNodeList);
+				}
+			}
 		}
+		this.writeJson(treeNodeList);
 	}
 	/**
-	 * 查找子模块信息。
-	 * @throws IOException 
+	 * 创建树结构节点。
+	 * @param module
+	 * 	菜单模块。
 	 * */
-	public void children() throws IOException{
-		if(this.menuService != null && (this.systemId != null && !this.systemId.trim().isEmpty()) && (this.moduleId != null && !this.moduleId.trim().isEmpty())){
-			this.writeJson(this.menuService.children(this.systemId, this.moduleId));
+	private synchronized TreeNode createTreeNode(ModuleDefine m){
+		if(m == null) return null;
+		
+		TreeNode node = new TreeNode();
+		node.setId(m.getModuleID());
+		node.setText(m.getModuleName());
+		Map<String,Object> attributes = new HashMap<String,Object>();
+		attributes.put("url", m.getModuleUri());
+		node.setAttributes(attributes);
+		
+		if(m.getModules() != null && m.getModules().size() > 0){
+			node.setChildren(new ArrayList<TreeNode>());
+			for(int i = 0; i < m.getModules().size(); i++){
+				TreeNode n = this.createTreeNode(m.getModules().item(i));
+				if(n != null) node.getChildren().add(n);
+			}
 		}
+		
+		return node;
 	}
 }
