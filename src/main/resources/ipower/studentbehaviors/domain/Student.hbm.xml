@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ipower.studentbehaviors.domain">
+	<!--学校 -->
+	<class name="School" table="tbl_base_school">
+		<!--学校ID -->
+		<id name="id" type="string" length="64"/>
+		<!--学校代码 -->
+		<property name="code" type="string" not-null="true" unique="true" length="32"/>
+		<!--学校名称 -->
+		<property name="name" type="string" not-null="true" length="32"/>
+		<!--学校类型 -->
+		<property name="type" type="string" length="20"/>
+	</class>
+	<!--教师 -->
+	<class name="Teacher" table="tbl_base_teachers">
+		
+	</class>
+</hibernate-mapping>
