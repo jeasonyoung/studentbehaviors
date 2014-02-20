@@ -14,6 +14,59 @@
 	</class>
 	<!--教师 -->
 	<class name="Teacher" table="tbl_base_teachers">
-		
+		<!--教师ID -->
+		<id name="id" type="string" length="64"/>
+		<!--教师账号 -->
+		<property name="account" type="string" not-null="true" unique="true" length="32"/>
+		<!--教师姓名 -->
+		<property name="name" type="string" not-null="true" length="20"/>
+		<!--性别 -->
+		<property name="sex" type="string" length="2"/>
+		<!--职称 -->
+		<property name="titles" type="string" length="20"/>
+		<!--电话 -->
+		<property name="phone" type="string" length="20"/>
+		<!--职务类别 -->
+		<property name="jobCategory" type="string" length="20"/>
+		<!--所属学校 -->
+		<many-to-one name="school" column="sch_id" class="School" fetch="join" cascade="save-update"/>
+	</class>
+	<!--班级 -->
+	<class name="Class" table="tbl_base_class">
+		<!--班级ID -->
+		<id name="id" type="string" length="64"/>
+		<!--班级代码 -->
+		<property name="code" type="string" not-null="true" unique="true" length="32"/>
+		<!--班级名称 -->
+		<property name="name" type="string" not-null="true" length="20"/>
+		<!--学习阶段 -->
+		<property name="level" type="string" length="10"/>
+		<!--当前年级 -->
+		<property name="grade" type="string" length="10"/>
+		<!--入学年份 -->
+		<property name="joinYear" type="integer"/>
+		<!--状态 -->
+		<property name="status" type="integer"/>
+		<!--所属学校 -->
+		<many-to-one name="school" column="sch_id" class="School" fetch="join" cascade="save-update"/>
+	</class>
+	<!--学生-->
+	<class name="Student" table="tbl_base_student">
+		<!--学生ID -->
+		<id name="id" type="string" length="64"/>
+		<!--学生代码 -->
+		<property name="code" type="string" not-null="true" unique="true" length="32"/>
+		<!--学生姓名 -->
+		<property name="name" type="string" not-null="true" length="20"/>
+		<!--性别 -->
+		<property name="gender" type="string" length="2"/>
+		<!--身份证 -->
+		<property name="idCard" type="string" length="18"/>
+		<!--入学年份 -->
+		<property name="joinYear" type="integer"/>
+		<!--状态 -->
+		<property name="status" type="integer"/>
+		<!--所属班级 -->
+		<many-to-one name="clazz" column="class_id" class="Class" fetch="join" cascade="save-update"/>
 	</class>
 </hibernate-mapping>
