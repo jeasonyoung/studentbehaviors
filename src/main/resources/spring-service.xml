@@ -7,4 +7,8 @@
 		<property name="menuFile" value="main_menus.xml"/>
 	</bean>
 	
+	<!--学校服务 -->
+	<bean id="schoolService" class="ipower.studentbehaviors.service.impl.SchoolServiceImpl">
+		<property name="schoolDao" ref="schoolDao"/>
+	</bean>
 </beans>
