@@ -2,10 +2,11 @@
 <ipower verion="1.0" xmlns="http://ipower.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ipower.org/ iPowerSchema.xsd ">
   <system id="AAA00000000000000000000000000000" sign="ipower.studentbehaviors" name="早午检系统" description="学生日常管理系统">
   	<module id="AAA00000000000000000000000000001" name="系统设置" uri="" order="1">
-  		<module id="AAA00000000000000000000000000101" name="教师管理" uri="" order="1"/>
-  		<module id="AAA00000000000000000000000000201" name="班级管理" uri="" order="2"/>
-  		<module id="AAA00000000000000000000000000301" name="学生管理" uri="" order="3"/>
-  		<module id="AAA00000000000000000000000000401" name="班主任管理" uri="" order="4"/>
+  		<module id="AAA00000000000000000000000000101" name="学校信息" uri="" order="1"/>
+  		<module id="AAA00000000000000000000000000201" name="教师管理" uri="" order="2"/>
+  		<module id="AAA00000000000000000000000000301" name="班级管理" uri="" order="3"/>
+  		<module id="AAA00000000000000000000000000401" name="学生管理" uri="" order="4"/>
+  		<module id="AAA00000000000000000000000000501" name="班主任管理" uri="" order="5"/>
   	</module>
 	<module id="AAA00000000000000000000000000002" name="班主任" uri="" order="2">
 		<module id="AAA00000000000000000000000000102" name="设置座位表" uri="" order="1"/>
