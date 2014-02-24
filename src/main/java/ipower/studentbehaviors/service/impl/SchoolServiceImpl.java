@@ -28,7 +28,16 @@ public class SchoolServiceImpl implements ISchoolService {
 
 	@Override
 	public void update(School data) {
-		if(data != null)this.schoolDao.save(data);
+		if(data != null){
+			School source = this.load();
+			if(source == null){
+				this.schoolDao.save(data);
+			}else {
+				source.setCode(data.getCode());
+				source.setName(data.getName());
+				source.setType(data.getType());
+			}
+		}
 	}
 
 }

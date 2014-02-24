@@ -13,4 +13,8 @@
 	</bean>
 	<!--druid -->
 	<bean name="DruidAction" class="ipower.studentbehaviors.action.DataSourceAction"/>
+	<!--学校 -->
+	<bean name="SchoolAction" class="ipower.studentbehaviors.action.SchoolAction">
+		<property name="schoolService" ref="schoolService"/>
+	</bean>
 </beans>
