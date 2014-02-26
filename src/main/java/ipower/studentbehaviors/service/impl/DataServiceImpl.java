@@ -11,6 +11,10 @@ import java.util.Map;
  * 数据服务抽象类.
  * @author 杨勇.
  * @since 2013-11-27.
+ * @param K
+ * 	数据域类。
+ * @param T
+ * 	交互类。
  * */
 public abstract class DataServiceImpl<K,T> implements IDataService<T> {
 	/**

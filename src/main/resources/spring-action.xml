@@ -17,4 +17,8 @@
 	<bean name="SchoolAction" class="ipower.studentbehaviors.action.SchoolAction">
 		<property name="schoolService" ref="schoolService"/>
 	</bean>
+	<!--教师 -->
+	<bean name="TeachersAction" class="ipower.studentbehaviors.action.TeachersAction"> 
+		<property name="service" ref="teachersService"/>
+	</bean>
 </beans>

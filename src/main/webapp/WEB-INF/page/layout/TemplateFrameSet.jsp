@@ -11,12 +11,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/jquery-easyui/themes/icon.css" type="text/css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/jquery-easyui/themes/default/easyui.css" type="text/css"/>
 		
-		<!--[if lt IE 9]>
-			<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/jquery-easyui/jquery-1.9.1.min.js"></script>
-		<![endif]-->
-		<!--[if gte IE 9]><!-->
-			<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/jquery-easyui/jquery-2.0.min.js"></script>
-		<!--<![endif]-->
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/jquery-easyui/jquery-1.9.1.min.js"></script>
 		
 		<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/jquery-easyui/jquery.easyui.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>

@@ -6,6 +6,8 @@ import ipower.model.DataGrid;
  * 数据服务接口.
  * @author 杨勇.
  * @since 2013-11-27.
+ * @param T
+ * 	交互类。
  * */
 public interface IDataService<T> {
 	/**

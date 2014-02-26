@@ -6,16 +6,17 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 /**
  * 数据操作实现类.
  * @author 杨勇.
  * @since 2013-11-27.
  * */
 public class BaseDaoImpl<T> implements IBaseDao<T> {
+	private static Logger logger = Logger.getLogger(BaseDaoImpl.class);
 	private SessionFactory sessionFactory;
 	/**
 	 * 设置SessionFactory。
@@ -43,6 +44,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	@Override
 	public T load(Class<T> c, Serializable id) {
 		if(c != null && id != null){
+			logger.info("加载[" + id + "]对象:" + c.getName());
 			return (T)this.getCurrentSession().get(c, id);
 		}
 		return null;
@@ -55,6 +57,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	@Override
 	public Serializable save(T data) {
 		if(data != null){
+			logger.info("保存数据：" + data.getClass().getName());
 			return this.getCurrentSession().save(data);
 		}
 		return null;
@@ -67,6 +70,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	@Override
 	public void update(T data) {
 		if(data != null){
+			logger.info("更新数据：" + data.getClass().getName());
 			this.getCurrentSession().update(data);
 		}
 	}
@@ -77,7 +81,10 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	 * */
 	@Override
 	public void saveOrUpdate(T data) {
-		if(data != null) this.getCurrentSession().saveOrUpdate(data);
+		if(data != null) {
+			logger.info("保存或更新数据：" + data.getClass().getName());
+			this.getCurrentSession().saveOrUpdate(data);
+		}
 	}
 	/**
 	 * 删除对象。
@@ -87,6 +94,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	@Override
 	public void delete(T data) {
 		if(data != null){
+			logger.info("删除数据：" + data.getClass().getName());
 			this.getCurrentSession().delete(data);
 		}
 	}
@@ -109,6 +117,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	@Override
 	public List<T> find(String hql, Map<String, Object> parameters,Integer page, Integer rows) {
 		if(hql == null || hql.isEmpty()) return null;
+		logger.info("查询数据HQL：" + hql);
 		Query query = this.getCurrentSession().createQuery(hql);
 		if(query != null){
 			if(parameters != null && parameters.size() > 0){
@@ -134,6 +143,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	@Override
 	public Long count(String hql, Map<String, Object> parameters) {
 		if(hql == null || hql.isEmpty()) return null;
+		logger.info("查询数据HQL：" + hql);
 		Query query = this.getCurrentSession().createQuery(hql);
 		if(query != null){
 			if(parameters != null && parameters.size() > 0){

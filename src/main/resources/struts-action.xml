@@ -21,6 +21,10 @@
 		<action name="school" class="SchoolAction">
 			<result name="list">/WEB-INF/page/settings/school/school_list.jsp</result>
 		</action>
-		
+		<!--教师-->
+		<action name="teachers" class="TeachersAction">
+			<result name="list">/WEB-INF/page/settings/teachers/teachers_list.jsp</result>
+			<result name="edit">/WEB-INF/page/settings/teachers/teachers_edit.jsp</result>
+		</action>
 	</package>
 </struts>

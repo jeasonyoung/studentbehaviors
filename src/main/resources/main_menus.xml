@@ -3,7 +3,7 @@
   <system id="AAA00000000000000000000000000000" sign="ipower.studentbehaviors" name="早午检系统" description="学生日常管理系统">
   	<module id="AAA00000000000000000000000000001" name="系统设置" uri="" order="1">
   		<!--module id="AAA00000000000000000000000000101" name="学校信息" uri="/settings/school.action" order="1"/-->
-  		<module id="AAA00000000000000000000000000201" name="教师管理" uri="" order="2"/>
+  		<module id="AAA00000000000000000000000000201" name="教师管理" uri="/settings/teachers.action" order="2"/>
   		<module id="AAA00000000000000000000000000301" name="班级管理" uri="" order="3"/>
   		<module id="AAA00000000000000000000000000401" name="学生管理" uri="" order="4"/>
   		<module id="AAA00000000000000000000000000501" name="班主任管理" uri="" order="5"/>

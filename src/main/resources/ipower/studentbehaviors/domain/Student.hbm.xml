@@ -29,7 +29,7 @@
 		<!--职务类别 -->
 		<property name="jobCategory" type="string" length="20"/>
 		<!--所属学校 -->
-		<many-to-one name="school" column="sch_id" class="School" fetch="join" cascade="save-update"/>
+		<!-- <many-to-one name="school" column="sch_id" class="School" fetch="join" cascade="save-update"/> -->
 	</class>
 	<!--班级 -->
 	<class name="Class" table="tbl_base_class">
@@ -48,7 +48,7 @@
 		<!--状态 -->
 		<property name="status" type="integer"/>
 		<!--所属学校 -->
-		<many-to-one name="school" column="sch_id" class="School" fetch="join" cascade="save-update"/>
+		<!-- <many-to-one name="school" column="sch_id" class="School" fetch="join" cascade="save-update"/> -->
 	</class>
 	<!--学生-->
 	<class name="Student" table="tbl_base_student">

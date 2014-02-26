@@ -9,24 +9,24 @@ import java.io.Serializable;
  * */
 public class Class implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private School school;
+	/*private School school;*/
 	private String id,code,name,level,grade;
 	private Integer joinYear,status;
 	/**
 	 * 获取所属学校。
 	 * @return 所属学校。
 	 * */
-	public School getSchool() {
+	/*public School getSchool() {
 		return school;
-	}
+	}*/
 	/**
 	 * 设置所属学校。
 	 * @param school
 	 * 	所属学校。
 	 * */
-	public void setSchool(School school) {
+	/*public void setSchool(School school) {
 		this.school = school;
-	}
+	}*/
 	/**
 	 * 获取班级ID。
 	 * @return 获取班级ID。

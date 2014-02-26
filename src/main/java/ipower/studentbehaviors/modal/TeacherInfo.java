@@ -1,30 +1,15 @@
-package ipower.studentbehaviors.domain;
+package ipower.studentbehaviors.modal;
 
-import java.io.Serializable;
+import ipower.model.Paging;
+
 /**
  * 教师信息。
- * @author 杨勇.
- * @since 2014-02-19.
+ * @author yangyong.
+ * @since 2014-02-26.
  * */
-public class Teacher implements Serializable{
+public class TeacherInfo extends Paging {
 	private static final long serialVersionUID = 1L;
-	/*private School school;*/
 	private String id,account,name,sex,titles,phone,jobCategory;
-	/**
-	 * 获取所属学校。
-	 * @return 所属学校。
-	 * */
-	/*public School getSchool() {
-		return school;
-	}*/
-	/**
-	 * 设置所属学校。
-	 * @param school
-	 * 所属学校。
-	 * */
-	/*public void setSchool(School school) {
-		this.school = school;
-	}*/
 	/**
 	 * 获取教师ID。
 	 * @return 教师ID。

@@ -11,4 +11,8 @@
 	<bean id="schoolService" class="ipower.studentbehaviors.service.impl.SchoolServiceImpl">
 		<property name="schoolDao" ref="schoolDao"/>
 	</bean>
+	<!--教师服务 -->
+	<bean id="teachersService" class="ipower.studentbehaviors.service.impl.TeachersServiceImpl">
+		<property name="teacherDao" ref="teacherDao"/>
+	</bean>
 </beans>
