@@ -19,7 +19,7 @@
 		
 		<!--学校 -->
 		<action name="school" class="SchoolAction">
-			<result name="list">/WEB-INF/page/school/school_list.jsp</result>
+			<result name="list">/WEB-INF/page/settings/school/school_list.jsp</result>
 		</action>
 		
 	</package>
