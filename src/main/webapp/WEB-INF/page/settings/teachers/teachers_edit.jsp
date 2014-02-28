@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<form id="settings_teachersdit_form" class="edit" method="POST">
+<form id="settings_teachersedit_form" class="edit" method="POST">
 	<dd style="marign-top:2px;">
 		<div style="float:left;">
-			<label style="width:88px;">教师名称：</label>
+			<label style="width:88px;">教师姓名：</label>
 			<input type="hidden" name="id"/>
 			<input type="text" name="name" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 		</div>

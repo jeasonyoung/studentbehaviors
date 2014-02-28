@@ -26,5 +26,10 @@
 			<result name="list">/WEB-INF/page/settings/teachers/teachers_list.jsp</result>
 			<result name="edit">/WEB-INF/page/settings/teachers/teachers_edit.jsp</result>
 		</action>
+		<!--班级 -->
+		<action name="classes" class="ClassAction">
+			<result name="list">/WEB-INF/page/settings/classes/classes_list.jsp</result>
+			<result name="edit">/WEB-INF/page/settings/classes/classes_edit.jsp</result>
+		</action>
 	</package>
 </struts>
