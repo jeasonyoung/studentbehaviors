@@ -2,7 +2,7 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<!--是否启用开发模式-->
-	<constant name="struts.devMode" value="true"/>
+	<constant name="struts.devMode" value="false"/>
 	<!--国际化资源文件名称-->
 	<constant name="struts.custom.i18n.resources" value="i18n"/>
 	<!--请求参数的编码方式 -->
