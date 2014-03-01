@@ -86,4 +86,10 @@ public class ClassServiceImpl extends DataServiceImpl<ipower.studentbehaviors.do
 			if(data != null)this.classDao.delete(data);
 		}
 	}
+
+	@Override
+	public List<ClassInfo> all() {
+		List<Class> list = this.classDao.find("from Class c where c.status=1 ", null, null, null);
+		return this.changeModel(list);
+	}
 }

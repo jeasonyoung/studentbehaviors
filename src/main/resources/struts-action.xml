@@ -31,5 +31,10 @@
 			<result name="list">/WEB-INF/page/settings/classes/classes_list.jsp</result>
 			<result name="edit">/WEB-INF/page/settings/classes/classes_edit.jsp</result>
 		</action>
+		<!--学生 -->
+		<action name="students" class="StudentAction">
+			<result name="list">/WEB-INF/page/settings/students/students_list.jsp</result>
+			<result name="edit">/WEB-INF/page/settings/students/students_edit.jsp</result>
+		</action>
 	</package>
 </struts>
