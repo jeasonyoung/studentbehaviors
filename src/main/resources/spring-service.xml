@@ -24,4 +24,13 @@
 		<property name="classDao" ref="classDao"/>
 		<property name="studentDao" ref="studentDao"/>
 	</bean>
+	<!--同步学生服务 -->
+	<bean id="syncDataService" class="ipower.studentbehaviors.service.impl.SyncDataServiceImpl">
+		<property name="url" value="${sync_Url}"/>
+		<property name="userName" value="${sync_UserName}"/>
+		<property name="password" value="${sync_Password}"/>
+		<property name="teacherDao" ref="teacherDao"/>
+		<property name="classDao" ref="classDao"/>
+		<property name="studentDao" ref="studentDao"/>
+	</bean>
 </beans>

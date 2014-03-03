@@ -7,5 +7,12 @@ import ipower.studentbehaviors.domain.Teacher;
  * @since 2014-02-20.
  * */
 public interface ITeacherDao extends IBaseDao<Teacher> {
-
+	/**
+	 * 同步数据。
+	 * @param data
+	 * 	数据。
+	 * @return
+	 * 	结果。
+	 * */
+	boolean sync(Teacher data);
 }

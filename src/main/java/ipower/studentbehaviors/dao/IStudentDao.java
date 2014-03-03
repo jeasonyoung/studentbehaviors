@@ -8,5 +8,12 @@ import ipower.studentbehaviors.domain.Student;
  * @since 2014-02-20.
  * */
 public interface IStudentDao extends IBaseDao<Student> {
-
+	/**
+	 * 同步数据。
+	 * @param data
+	 * 	数据。
+	 * @return
+	 * 	结果。
+	 * */
+	boolean sync(Student data);
 }
