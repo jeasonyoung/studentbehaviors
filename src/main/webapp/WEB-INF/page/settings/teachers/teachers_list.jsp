@@ -116,6 +116,31 @@ $(function(){
 			account:$("#settings_teachers_dg_toolbar input[type=text]").val()
 		});
 	};
+	//import
+	settings_teachers_dg_import = function(){
+		$.messager.confirm("确认","您是否确认从城域网中导入教师数据?",function(r){
+			if(!r)return;
+			$.messager.progress();
+			$.ajax({
+				url:"${pageContext.request.contextPath}/settings/sync!teachers.action",
+				type:"GET",
+				dataType:"json",
+				success:function(data,textStatus){
+					$.messager.progress("close");
+					$.messager.alert("提示","导入数据完成！");
+					if(data.success){
+						dg.datagrid("load");
+						dg.datagrid("unselectAll");
+					}else{
+						$.messager.show({
+							title:"提示",
+							msg:data.msg
+						});
+					}
+				}
+			});
+		});
+	};
 	//add
 	settings_teachers_dg_add = function(){
 		edit_window("新增教师",0,null);
@@ -159,10 +184,10 @@ $(function(){
 </script>
 <table id="settings_teachers_dg"></table>
 <div id="settings_teachers_dg_toolbar" style="padding:2px;height:auto;">
+	<a href="#" class="easyui-linkbutton" onclick="settings_teachers_dg_import()" data-options="iconCls:'icon-add',plain:true" style="float:left;">导入教师</a>
 	<a href="#" class="easyui-linkbutton" onclick="settings_teachers_dg_add()" data-options="iconCls:'icon-add',plain:true" style="float:left;">新增</a>
 	<span>|</span>
 	<a href="#" class="easyui-linkbutton" onclick="settings_teachers_dg_delete()" data-options="iconCls:'icon-remove',plain:true">删除</a>
- 
 	<span style="margin-left:20px;">教师姓名:</span>
 	<input type="text" style="width:268px;"/>
 	<a href="#" class="easyui-linkbutton" onclick="settings_teachers_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a>

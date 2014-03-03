@@ -37,6 +37,10 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements IStudentDao 
 			student = new Student();
 			student.setId(UUID.randomUUID().toString());
 			student.setClazz(data.getClazz());
+			if(data.getId() == null || data.getId().trim().isEmpty()){
+				data.setId(student.getId());
+				data.setStatus(1);
+			}
 		}
 		BeanUtils.copyProperties(data, student);
 		if(isAdded)this.save(student);

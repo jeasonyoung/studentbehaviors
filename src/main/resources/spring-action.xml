@@ -29,4 +29,10 @@
 	<bean name="StudentAction" class="ipower.studentbehaviors.action.StudentAction">
 		<property name="service" ref="studentService"/>
 	</bean>
+	<!--数据同步 -->
+	<bean name="SyncAction" class="ipower.studentbehaviors.action.SyncAction">
+		<property name="syncDataService" ref="syncDataService"/>
+		<property name="classDao" ref="classDao"/>
+		<property name="syncSchoolName" value="${sync_school_name}"/>
+	</bean>
 </beans>

@@ -110,6 +110,68 @@ $(function(){
 			}
 		});
 	};
+	//import
+	settings_classes_dg_import = function(){
+		$.messager.confirm("确认","您是否确认从城域网中导入教师数据?",function(r){
+			if(!r)return;
+			$.messager.progress();
+			$.ajax({
+				url:"${pageContext.request.contextPath}/settings/sync!classes.action",
+				type:"GET",
+				dataType:"json",
+				success:function(data,textStatus){
+					$.messager.progress("close");
+					$.messager.alert("提示","导入班级数据完成！");
+					if(data.success){
+						dg.datagrid("load");
+						dg.datagrid("unselectAll");
+					}else{
+						$.messager.show({
+							title:"提示",
+							msg:data.msg
+						});
+					}
+				}
+			});
+		});
+	};
+	//import students
+	settings_classes_dg_importstudents = function(){
+		var rows = dg.datagrid("getChecked");
+		if(rows && rows.length > 0){
+			$.messager.confirm("确认","您是否确认导入选中班级的学生数据?",function(r){
+				if(!r)return;
+				var ids = [];
+				for(var i = 0; i < rows.length; i++){
+					ids.push(rows[i].id);
+				}
+				$.messager.progress();
+				$.ajax({
+					url:"${pageContext.request.contextPath}/settings/sync!students.action",
+					type:"POST",
+					data:{
+						classId:ids.join("|")
+					},
+					dataType:"json",
+					success:function(data,textStatus){
+						$.messager.progress("close");
+						$.messager.alert("提示","导入班级下学生数据完成！");
+						if(data.success){
+							dg.datagrid("load");
+							dg.datagrid("unselectAll");
+						}else{
+							$.messager.show({
+								title:"提示",
+								msg:data.msg
+							});
+						}
+					}
+				});
+			});
+		}else{
+			$.messager.alert("提示","未选中须删除的数据！");
+		}
+	};
 	//search
 	settings_classes_dg_search = function(){
 		dg.datagrid("load",{
@@ -160,6 +222,8 @@ $(function(){
 </script>
 <table id="settings_classes_dg"></table>
 <div id="settings_classes_dg_toolbar" style="padding:2px;height:auto;">
+	<a href="#" class="easyui-linkbutton" onclick="settings_classes_dg_import()" data-options="iconCls:'icon-add',plain:true" style="float:left;">导入班级</a>
+	<a href="#" class="easyui-linkbutton" onclick="settings_classes_dg_importstudents()" data-options="iconCls:'icon-add',plain:true" style="float:left;">导入学生</a>
 	<a href="#" class="easyui-linkbutton" onclick="settings_classes_dg_add()" data-options="iconCls:'icon-add',plain:true" style="float:left;">新增</a>
 	<span>|</span>
 	<a href="#" class="easyui-linkbutton" onclick="settings_classes_dg_delete()" data-options="iconCls:'icon-remove',plain:true">删除</a>

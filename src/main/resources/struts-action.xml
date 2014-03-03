@@ -36,5 +36,7 @@
 			<result name="list">/WEB-INF/page/settings/students/students_list.jsp</result>
 			<result name="edit">/WEB-INF/page/settings/students/students_edit.jsp</result>
 		</action>
+		<!--同步数据 -->
+		<action name="sync" class="SyncAction"/>
 	</package>
 </struts>

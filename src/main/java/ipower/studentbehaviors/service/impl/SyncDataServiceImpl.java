@@ -2,7 +2,9 @@ package ipower.studentbehaviors.service.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
@@ -78,10 +80,17 @@ public class SyncDataServiceImpl implements ISyncDataService {
 					   		.append(body)
 					   .append("</soap12:Body>")
 				   .append("</soap12:Envelope>");
+		
+		String post = soapBuilder.toString();
 		logger.info("开始同步数据:");
 		logger.info("url:" + this.url);
-		logger.info("post:\r\n" + soapBuilder.toString());
-		String resultXml = HttpUtil.sendRequest(this.url, "POST", soapBuilder.toString());
+		logger.info("post:\r\n" + post);
+		
+		Map<String, String> headers = new HashMap<>();
+		headers.put("Content-Type", "application/soap+xml; charset=utf-8");
+		headers.put("Content-Length",((Integer)post.getBytes("UTF-8").length).toString());
+		
+		String resultXml = HttpUtil.sendRequest(this.url, headers, "POST", post);
 		logger.info("反馈数据：\r\n" + resultXml);
 		if(resultXml != null && resultXml.length() > 0){
 			SAXReader saxReader = new SAXReader();
@@ -105,7 +114,8 @@ public class SyncDataServiceImpl implements ISyncDataService {
 				logger.info("反馈结果为 null");
 				return;
 			}
-			List<?> list = doc.selectNodes("//Datas");
+			Element root = doc.getRootElement();
+			List<?> list = root.selectNodes("//Datas");
 			if(list == null || list.size() == 0){
 				logger.info("没有获取到教师数据。");
 				return;
@@ -116,12 +126,15 @@ public class SyncDataServiceImpl implements ISyncDataService {
 			   if(object instanceof Node){
 				   try{
 					   Node node = (Node)object;
-					   Element account = (Element)node.selectSingleNode("/account"),
-							  userName = (Element)node.selectSingleNode("/xm");
+					   Element account = (Element)node.selectSingleNode("account"),
+							  userName = (Element)node.selectSingleNode("xm");
 					   if(account != null && userName != null){
 						   Teacher data = new Teacher();
 						   data.setAccount(account.getTextTrim());
 						   data.setName(userName.getTextTrim());
+						   if(data.getAccount() == null || data.getAccount().trim().isEmpty()){
+							   continue;
+						   }
 						   boolean result = this.teacherDao.sync(data);
 						   logger.info("同步[" + (i+1) + "]教师数据["+ data.getAccount() +"," + data.getName() + "]"+ result); 
 					   }
@@ -160,11 +173,11 @@ public class SyncDataServiceImpl implements ISyncDataService {
 					Object object = list.get(i);
 					if(object instanceof Node){
 					   Node node = (Node)object;
-					   Element code = (Element)node.selectSingleNode("/bjdm"),
-							   name = (Element)node.selectSingleNode("/bjmc"),
-							   joinYear = (Element)node.selectSingleNode("/rxnf"),
-							   grade = (Element)node.selectSingleNode("/dqnj"),
-							   level = (Element)node.selectSingleNode("/bjlx");
+					   Element code = (Element)node.selectSingleNode("bjdm"),
+							   name = (Element)node.selectSingleNode("bjmc"),
+							   joinYear = (Element)node.selectSingleNode("rxnf"),
+							   grade = (Element)node.selectSingleNode("dqnj"),
+							   level = (Element)node.selectSingleNode("bjlx");
 					   if(code != null && name != null && joinYear != null && grade != null){
 						   ipower.studentbehaviors.domain.Class data = new Class();
 						   data.setCode(code.getTextTrim());
@@ -172,7 +185,9 @@ public class SyncDataServiceImpl implements ISyncDataService {
 						   data.setJoinYear(Integer.parseInt(joinYear.getTextTrim()));
 						   data.setGrade(grade.getTextTrim());
 						   data.setLevel(level.getTextTrim());
-						   
+						   if(data.getCode() == null || data.getCode().trim().isEmpty()){
+							   continue;
+						   }
 						   boolean result = this.classDao.sync(data);
 						   logger.info("同步[" + (i+1) + "]班级数据["+ data.getCode() +"," + data.getName() + "]"+ result); 
 					   }
@@ -214,18 +229,20 @@ public class SyncDataServiceImpl implements ISyncDataService {
 					Object object = list.get(i);
 					if(object instanceof Node){
 					   Node node = (Node)object;
-					   Element code = (Element)node.selectSingleNode("/xh"),
-							   name = (Element)node.selectSingleNode("/xm"),
-							   gender = (Element)node.selectSingleNode("/xb"),
-							   join = (Element)node.selectSingleNode("/rxnf");
+					   Element code = (Element)node.selectSingleNode("xh"),
+							   name = (Element)node.selectSingleNode("xm"),
+							   gender = (Element)node.selectSingleNode("xb"),
+							   join = (Element)node.selectSingleNode("rxnf");
 					   if(code != null && name != null && gender != null && join != null){
 						   Student data = new Student();
 						   data.setCode(code.getTextTrim());
 						   data.setName(name.getTextTrim());
 						   data.setJoinYear(Integer.parseInt(join.getTextTrim()));
 						   data.setGender(gender.getTextTrim());
-						   data.setStatus(1);
 						   data.setClazz(clazz);
+						   if(data.getCode() == null || data.getCode().trim().isEmpty()){
+							   continue;
+						   }
 						   boolean result = this.studentDao.sync(data);
 						   logger.info("同步[" + (i+1) + "]班级数据["+ data.getCode() +"," + data.getName() + "]"+ result); 
 					   }

@@ -25,7 +25,7 @@ public class ClassDaoImpl extends BaseDaoImpl<ipower.studentbehaviors.domain.Cla
 	 * 	班级对象。
 	 * */
 	protected synchronized Class load(String code){
-		final String hql = "from Class c where t.code=:code";
+		final String hql = "from Class c where c.code=:code";
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("code", code);
 		List<Class> list = this.find(hql, parameters, null, null);
@@ -42,6 +42,10 @@ public class ClassDaoImpl extends BaseDaoImpl<ipower.studentbehaviors.domain.Cla
 		if(isAdded = (clazz == null)){
 			clazz = new Class();
 			clazz.setId(UUID.randomUUID().toString());
+			if(data.getId() == null || data.getId().trim().isEmpty()){
+				data.setId(clazz.getId());
+				data.setStatus(1);
+			}
 		}
 		BeanUtils.copyProperties(data, clazz);
 		if(isAdded)this.save(clazz);
