@@ -41,6 +41,7 @@ public class SyncAction extends BaseAction {
 		}catch(Exception e){
 			json.setSuccess(false);
 			json.setMsg(e.getMessage());
+			e.printStackTrace();
 		}finally{
 			this.writeJson(json);
 		}
@@ -54,6 +55,7 @@ public class SyncAction extends BaseAction {
 		}catch(Exception e){
 			json.setSuccess(false);
 			json.setMsg(e.getMessage());
+			e.printStackTrace();
 		}finally{
 			this.writeJson(json);
 		}
@@ -69,6 +71,7 @@ public class SyncAction extends BaseAction {
 				return;
 			}
 			for(String id : ids){
+				if(id == null || id.trim().isEmpty()) continue;
 				Class data = this.classDao.load(Class.class, id);
 				if(data == null) continue;
 				this.syncDataService.syncStudents(this.syncSchoolName, data);
@@ -77,6 +80,7 @@ public class SyncAction extends BaseAction {
 		}catch(Exception e){
 			json.setSuccess(false);
 			json.setMsg(e.getMessage());
+			e.printStackTrace();
 		}finally{
 			this.writeJson(json);
 		}
