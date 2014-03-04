@@ -16,7 +16,6 @@ import ipower.studentbehaviors.domain.Student;
  * @since 2014-02-20.
  * */
 public class StudentDaoImpl extends BaseDaoImpl<Student> implements IStudentDao {
-
 	
 	protected synchronized Student load(String code){
 		final String hql = "from Student s where s.code=:code";
@@ -37,14 +36,16 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements IStudentDao 
 			student = new Student();
 			student.setId(UUID.randomUUID().toString());
 			student.setClazz(data.getClazz());
-			if(data.getId() == null || data.getId().trim().isEmpty()){
-				data.setId(student.getId());
-				data.setStatus(1);
-			}
+		}else {
+			data.setIdCard(student.getIdCard());
+		}
+		data.setId(student.getId());
+		data.setStatus(student.getStatus());
+		if(data.getStatus() == null){
+			data.setStatus(1);
 		}
 		BeanUtils.copyProperties(data, student);
 		if(isAdded)this.save(student);
 		return true;
 	}
-
 }

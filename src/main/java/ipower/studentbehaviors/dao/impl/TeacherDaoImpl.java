@@ -41,10 +41,13 @@ public class TeacherDaoImpl extends BaseDaoImpl<Teacher> implements ITeacherDao 
 		if(isAdded = (teacher == null)){
 			teacher = new Teacher();
 			teacher.setId(UUID.randomUUID().toString());
-			if(data.getId() == null || data.getId().trim().isEmpty()){
-				data.setId(teacher.getId());
-			}
+		}else {
+			data.setJobCategory(teacher.getJobCategory());
+			data.setPhone(teacher.getPhone());
+			data.setSex(teacher.getSex());
+			data.setTitles(teacher.getTitles());
 		}
+		data.setId(teacher.getId());
 		BeanUtils.copyProperties(data, teacher);
 		if(isAdded)this.save(teacher);
 		return true;

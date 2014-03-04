@@ -86,4 +86,9 @@ public class TeachersServiceImpl extends DataServiceImpl<Teacher, TeacherInfo> i
 			if(data != null) this.teacherDao.delete(data);
 		}
 	}
+	
+	public List<TeacherInfo> all(){
+		List<Teacher> list = this.teacherDao.find("from Teacher t order by t.name", null, null, null);
+		return this.changeModel(list);
+	}
 }

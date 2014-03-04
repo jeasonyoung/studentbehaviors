@@ -14,21 +14,21 @@ $(function(){
 		border:true,
 		striped:true,
 		idField:"id",
-		sortName:"name",
+		sortName:"account",
 		sortOrder:"asc",
 		columns:[[{
 			field:"id",
 			checkbox:true
 		},{
-			title:"教师姓名",
-			field:"name",
-			width:80,
-			sortable:true
-		},{
 			title:"城域网帐号",
 			field:"account",
-			width:100,
+			width:60,
 			align:"left",
+			sortable:true
+		},{
+			title:"教师姓名",
+			field:"name",
+			width:50,
 			sortable:true
 		},{
 			title:"性别",
@@ -39,7 +39,7 @@ $(function(){
 		},{
 			title:"职称",
 			field:"titles",
-			width:80,
+			width:70,
 			sortable:true
 		},{
 			title:"职务类别",
@@ -49,7 +49,7 @@ $(function(){
 		},{
 			title:"电话",
 			field:"phone",
-			width:30,
+			width:120,
 			sortable:true
 		}]],
 		toolbar:"#settings_teachers_dg_toolbar",

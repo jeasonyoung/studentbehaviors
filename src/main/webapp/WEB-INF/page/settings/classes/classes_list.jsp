@@ -14,21 +14,26 @@ $(function(){
 		border:true,
 		striped:true,
 		idField:"id",
-		sortName:"name",
-		sortOrder:"asc",
+		sortName:"joinYear",
+		sortOrder:"desc",
 		columns:[[{
 			field:"id",
 			checkbox:true
 		},{
-			title:"班级名称",
-			field:"name",
-			width:80,
+			title:"所属年级",
+			field:"grade",
+			width:30,
 			sortable:true
 		},{
 			title:"班级代码",
 			field:"code",
-			width:100,
+			width:50,
 			align:"left",
+			sortable:true
+		},{
+			title:"班级名称",
+			field:"name",
+			width:80,
 			sortable:true
 		},{
 			title:"培养层次",
@@ -37,14 +42,9 @@ $(function(){
 			align:"center",
 			sortable:true
 		},{
-			title:"所属年级",
-			field:"grade",
-			width:80,
-			sortable:true
-		},{
 			title:"入学年度",
 			field:"joinYear",
-			width:100,
+			width:30,
 			sortable:true
 		},{
 			title:"状态",
@@ -169,7 +169,7 @@ $(function(){
 				});
 			});
 		}else{
-			$.messager.alert("提示","未选中须删除的数据！");
+			$.messager.alert("提示","未选中须导入学生的班级！");
 		}
 	};
 	//search

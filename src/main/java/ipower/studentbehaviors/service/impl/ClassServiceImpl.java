@@ -31,7 +31,7 @@ public class ClassServiceImpl extends DataServiceImpl<ipower.studentbehaviors.do
 		Map<String, Object> parameters = new HashMap<>();
 		hql = this.addWhere(info, hql, parameters);
 		if(info.getSort() != null){
-			hql += " order by c." + info.getSort() + " " + info.getOrder();
+			hql += " order by c." + info.getSort() + " " + info.getOrder() + ",c.name";
 		}
 		return this.classDao.find(hql, parameters, info.getPage(),info.getRows());
 	}
@@ -54,6 +54,10 @@ public class ClassServiceImpl extends DataServiceImpl<ipower.studentbehaviors.do
 
 	@Override
 	protected String addWhere(ClassInfo info, String hql, Map<String, Object> parameters) {
+		if(info.getGrade() != null && !info.getGrade().trim().isEmpty()){
+			hql += " and (c.grade like :grade) ";
+			parameters.put("grade", "%" + info.getGrade() + "%");
+		}
 		if(info.getName() != null && !info.getName().trim().isEmpty()){
 			hql += " and (c.name like :name or c.code like :name)";
 			parameters.put("name", "%" + info.getName() + "%");
@@ -89,7 +93,7 @@ public class ClassServiceImpl extends DataServiceImpl<ipower.studentbehaviors.do
 
 	@Override
 	public List<ClassInfo> all() {
-		List<Class> list = this.classDao.find("from Class c where c.status=1 ", null, null, null);
+		List<Class> list = this.classDao.find("from Class c where c.status=1 order by c.joinYear desc, c.name", null, null, null);
 		return this.changeModel(list);
 	}
 }

@@ -42,10 +42,11 @@ public class ClassDaoImpl extends BaseDaoImpl<ipower.studentbehaviors.domain.Cla
 		if(isAdded = (clazz == null)){
 			clazz = new Class();
 			clazz.setId(UUID.randomUUID().toString());
-			if(data.getId() == null || data.getId().trim().isEmpty()){
-				data.setId(clazz.getId());
-				data.setStatus(1);
-			}
+		}
+		data.setId(clazz.getId());
+		data.setStatus(clazz.getStatus());
+		if(data.getStatus() == null){
+			data.setStatus(1);
 		}
 		BeanUtils.copyProperties(data, clazz);
 		if(isAdded)this.save(clazz);

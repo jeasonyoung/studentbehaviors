@@ -1,6 +1,9 @@
 package ipower.studentbehaviors.action;
 
+import java.io.IOException;
+
 import ipower.studentbehaviors.modal.StudentInfo;
+import ipower.studentbehaviors.service.IStudentService;
 
 /**
  * 学生Action。
@@ -20,4 +23,9 @@ public class StudentAction extends BaseDataAction<StudentInfo> {
 		return this.getModel().getId();
 	}
 
+	public void students() throws IOException{
+		if(this.service instanceof IStudentService){
+			this.writeJson(((IStudentService)this.service).loadStudents(this.getModel().getClassId()));
+		}
+	}
 }

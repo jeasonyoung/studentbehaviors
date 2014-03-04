@@ -14,7 +14,7 @@ $(function(){
 		border:true,
 		striped:true,
 		idField:"id",
-		sortName:"name",
+		sortName:"className",
 		sortOrder:"asc",
 		columns:[[{
 			field:"id",
@@ -22,24 +22,25 @@ $(function(){
 		},{
 			title:"所属班级",
 			field:"className",
-			width:100,
+			width:50,
 			sortable:true
 		},{
 			title:"学生代码",
 			field:"code",
-			width:100,
+			width:70,
 			align:"left",
 			sortable:true
 		},{
 			title:"学生姓名",
 			field:"name",
-			width:100,
-			align:"center",
+			width:50,
+			align:"left",
 			sortable:true
 		},{
 			title:"性别",
 			field:"gender",
-			width:80,
+			width:20,
+			align:"center",
 			sortable:true
 		},{
 			title:"身份证号",
@@ -49,12 +50,14 @@ $(function(){
 		},{
 			title:"入学年度",
 			field:"joinYear",
-			width:100,
+			width:30,
+			align:"center",
 			sortable:true
 		},{
 			title:"状态",
 			field:"status",
-			width:30,
+			width:20,
+			align:"center",
 			sortable:true
 		}]],
 		toolbar:"#settings_students_dg_toolbar",
@@ -118,8 +121,8 @@ $(function(){
 	//search
 	settings_students_dg_search = function(){
 		dg.datagrid("load",{
-			name:$("#settings_students_dg_toolbar input[name=className]").val(),
-			grade:$("#settings_students_dg_toolbar input[name=name]").val()
+			className:$("#settings_students_dg_toolbar input[name=className]").val(),
+			name:$("#settings_students_dg_toolbar input[name=name]").val()
 		});
 	};
 	//add

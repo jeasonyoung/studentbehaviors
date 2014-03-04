@@ -1,5 +1,7 @@
 package ipower.studentbehaviors.service;
 
+import java.util.List;
+
 import ipower.studentbehaviors.dao.IClassDao;
 import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.modal.StudentInfo;
@@ -22,4 +24,12 @@ public interface IStudentService extends IDataService<StudentInfo> {
 	 * 	班级数据操作接口。
 	 * */
 	void setClassDao(IClassDao classDao);
+	/**
+	 * 加载班级下的学生数据。
+	 * @param classId
+	 * 	班级ID。
+	 * @return
+	 * 	学生数据。
+	 * */
+	List<StudentInfo> loadStudents(String classId);
 }

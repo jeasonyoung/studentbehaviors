@@ -37,6 +37,9 @@ public class StudentServiceImpl extends DataServiceImpl<Student, StudentInfo> im
 		String hql = "from Student s where 1=1 ";
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		hql = this.addWhere(info, hql, parameters);
+		if(info.getSort().equalsIgnoreCase("className")){
+			info.setSort("clazz.name");
+		}
 		if(info.getSort() != null){
 			hql += " order by s." + info.getSort() + " " + info.getOrder();
 		}
@@ -112,5 +115,13 @@ public class StudentServiceImpl extends DataServiceImpl<Student, StudentInfo> im
 			if(data != null)
 				this.studentDao.delete(data);
 		}
+	}
+	@Override
+	public List<StudentInfo> loadStudents(String classId) {
+		final String hql = "from Student s where s.status = 1 and s.clazz.id = :classId order by s.name";
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("classId", classId);
+		List<Student> list = this.studentDao.find(hql, parameters, null, null);
+		return this.changeModel(list);
 	}
 }
