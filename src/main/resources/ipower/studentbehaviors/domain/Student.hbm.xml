@@ -69,4 +69,8 @@
 		<!--所属班级 -->
 		<many-to-one name="clazz" column="class_id" class="Class" fetch="join" cascade="save-update"/>
 	</class>
+	<!--班主任 -->
+	<class name="Headmaster" table="tabl_base_headmaster">
+		
+	</class>
 </hibernate-mapping>
