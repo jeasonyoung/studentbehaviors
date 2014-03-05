@@ -6,7 +6,7 @@
   		<module id="AAA00000000000000000000000000201" name="教师管理" uri="/settings/teachers.action" order="2"/>
   		<module id="AAA00000000000000000000000000301" name="班级管理" uri="/settings/classes.action" order="3"/>
   		<module id="AAA00000000000000000000000000401" name="学生管理" uri="/settings/students.action" order="4"/>
-  		<module id="AAA00000000000000000000000000501" name="班主任管理" uri="" order="5"/>
+  		<module id="AAA00000000000000000000000000501" name="班主任管理" uri="/settings/headmaster.action" order="5"/>
   		<module id="AAA00000000000000000000000000601" name="用户管理" uri="" order="6"/>
   	</module>
 	<module id="AAA00000000000000000000000000002" name="班主任" uri="" order="2">

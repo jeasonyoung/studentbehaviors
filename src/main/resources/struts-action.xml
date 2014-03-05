@@ -38,5 +38,10 @@
 		</action>
 		<!--同步数据 -->
 		<action name="sync" class="SyncAction"/>
+		<!--班主任 -->
+		<action name="headmaster" class="HeadmasterAction">
+			<result name="list">/WEB-INF/page/settings/headmaster/headmaster_list.jsp</result>
+			<result name="edit">/WEB-INF/page/settings/headmaster/headmaster_edit.jsp</result>
+		</action>
 	</package>
 </struts>

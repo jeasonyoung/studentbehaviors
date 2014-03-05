@@ -33,4 +33,10 @@
 		<property name="classDao" ref="classDao"/>
 		<property name="studentDao" ref="studentDao"/>
 	</bean>
+	<!--班主任服务 -->
+	<bean id="headmasterService" class="ipower.studentbehaviors.service.impl.HeadmasterServiceImpl">
+		<property name="headmasterDao" ref="headmasterDao"/>
+		<property name="classDao" ref="classDao"/>
+		<property name="teacherDao" ref="teacherDao"/>
+	</bean>
 </beans>

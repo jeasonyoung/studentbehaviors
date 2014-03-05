@@ -17,4 +17,8 @@
 	<bean id="studentDao" class="ipower.studentbehaviors.dao.impl.StudentDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+	<!--班主任数据访问 -->
+	<bean id="headmasterDao" class="ipower.studentbehaviors.dao.impl.HeadmasterDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>

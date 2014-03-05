@@ -71,6 +71,13 @@
 	</class>
 	<!--班主任 -->
 	<class name="Headmaster" table="tabl_base_headmaster">
-		
+		<!--班主任Id -->
+		<id name="id" type="string" length="64"/>
+		<!--班主任类型：1-班主任，2-副班主任 -->
+		<property name="type" type="integer"/>
+		<!--班级 -->
+		<many-to-one name="clazz" column="class_id" class="Class" fetch="join" cascade="save-update"/>
+		<!--教师 -->
+		<many-to-one name="teacher" column="teacher_id" class="Teacher" fetch="join" cascade="save-update"/>
 	</class>
 </hibernate-mapping>

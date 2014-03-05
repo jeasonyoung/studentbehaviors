@@ -35,4 +35,8 @@
 		<property name="classDao" ref="classDao"/>
 		<property name="syncSchoolName" value="${sync_school_name}"/>
 	</bean>
+	<!--班主任 -->
+	<bean name="HeadmasterAction" class="ipower.studentbehaviors.action.HeadmasterAction">
+		<property name="service" ref="headmasterService"/>
+	</bean>
 </beans>
