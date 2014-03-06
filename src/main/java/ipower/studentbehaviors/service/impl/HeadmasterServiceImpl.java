@@ -124,6 +124,12 @@ public class HeadmasterServiceImpl extends DataServiceImpl<Headmaster,Headmaster
 				}
 			}
 			if(isAdded)this.headmasterDao.save(data);
+			if(data.getClazz() != null && (info.getClassName() == null || info.getClassName().trim().isEmpty())){
+				info.setClassName(data.getClazz().getName());
+			}
+			if(data.getTeacher() != null && (info.getTeacherName() == null || info.getTeacherName().trim().isEmpty())){
+				info.setTeacherName(data.getTeacher().getName());
+			}
 		}
 		return info;
 	}

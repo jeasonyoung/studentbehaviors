@@ -43,5 +43,10 @@
 			<result name="list">/WEB-INF/page/settings/headmaster/headmaster_list.jsp</result>
 			<result name="edit">/WEB-INF/page/settings/headmaster/headmaster_edit.jsp</result>
 		</action>
+		<!--用户 -->
+		<action name="users" class="UserAction">
+			<result name="list">/WEB-INF/page/settings/users/users_list.jsp</result>
+			<result name="edit">/WEB-INF/page/settings/users/users_edit.jsp</result>
+		</action>
 	</package>
 </struts>

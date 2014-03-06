@@ -39,4 +39,8 @@
 	<bean name="HeadmasterAction" class="ipower.studentbehaviors.action.HeadmasterAction">
 		<property name="service" ref="headmasterService"/>
 	</bean>
+	<!--用户 -->
+	<bean name="UserAction" class="ipower.studentbehaviors.action.UserAction">
+		<property name="service" ref="userService"/>
+	</bean>
 </beans>

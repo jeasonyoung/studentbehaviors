@@ -101,6 +101,9 @@ public class StudentServiceImpl extends DataServiceImpl<Student, StudentInfo> im
 				}
 			}
 			if(isAdded)this.studentDao.save(data);
+			if(data.getClazz() != null && (info.getClassName() == null || info.getClassName().trim().isEmpty())){
+				info.setClassName(data.getClazz().getName());
+			}
 		}
 		return info;
 	}

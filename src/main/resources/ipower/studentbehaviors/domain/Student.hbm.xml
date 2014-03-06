@@ -70,7 +70,7 @@
 		<many-to-one name="clazz" column="class_id" class="Class" fetch="join" cascade="save-update"/>
 	</class>
 	<!--班主任 -->
-	<class name="Headmaster" table="tabl_base_headmaster">
+	<class name="Headmaster" table="tbl_base_headmaster">
 		<!--班主任Id -->
 		<id name="id" type="string" length="64"/>
 		<!--班主任类型：1-班主任，2-副班主任 -->
@@ -79,5 +79,14 @@
 		<many-to-one name="clazz" column="class_id" class="Class" fetch="join" cascade="save-update"/>
 		<!--教师 -->
 		<many-to-one name="teacher" column="teacher_id" class="Teacher" fetch="join" cascade="save-update"/>
+	</class>
+	<!--用户 -->
+	<class name="User" table="tbl_base_users">
+		<composite-id>
+			<!--教师 -->
+			<key-many-to-one name="teacher" column="teacher_id" class="Teacher"/>
+			<!--角色 -->
+			<key-property name="role" type="string" length="32"/>
+		</composite-id>		
 	</class>
 </hibernate-mapping>

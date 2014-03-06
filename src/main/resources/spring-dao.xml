@@ -21,4 +21,8 @@
 	<bean id="headmasterDao" class="ipower.studentbehaviors.dao.impl.HeadmasterDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+	<!--用户数据访问 -->
+	<bean id="userDao" class="ipower.studentbehaviors.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>
