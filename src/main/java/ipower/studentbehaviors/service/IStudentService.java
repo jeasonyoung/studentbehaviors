@@ -7,7 +7,7 @@ import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.modal.StudentInfo;
 
 /**
- * 学生服务接口。
+ * 学生考勤服务接口。
  * @author yangyong.
  * @since 2014-02-28.
  * */

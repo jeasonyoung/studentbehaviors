@@ -48,5 +48,9 @@
 			<result name="list">/WEB-INF/page/settings/users/users_list.jsp</result>
 			<result name="edit">/WEB-INF/page/settings/users/users_edit.jsp</result>
 		</action>
+		<!--学生考勤-->
+		<action name="abnAttendance" class="StudentAbnAttendanceAction">
+			<result name="list">/WEB-INF/page/headmaster/attendance/attendance_record.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -44,4 +44,9 @@
 		<property name="userDao" ref="userDao"/>
 		<property name="teacherDao" ref="teacherDao"/>
 	</bean>
+	<!--学生考勤异常服务 -->
+	<bean id="studentAbnAttendanceService" class="ipower.studentbehaviors.service.impl.StudentAbnAttendanceServiceImpl">
+		<property name="studentAbnAttendanceDao" ref="studentAbnAttendanceDao"/>
+		<property name="studentDao" ref="studentDao"/>
+	</bean>
 </beans>

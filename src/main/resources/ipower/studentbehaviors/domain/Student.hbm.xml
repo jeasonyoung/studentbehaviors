@@ -89,4 +89,23 @@
 			<key-property name="role" type="string" length="32"/>
 		</composite-id>		
 	</class>
+	<!--学生考勤异常 -->
+	<class name="StudentAbnAttendance" class="tbl_base_abnattendance">
+		<!--考勤ID -->
+		<id name="id" type="string" length="64"/>
+		<!--学生 -->
+		<many-to-one name="student" column="student_id" unique-key="student_abn_attendance" class="Student" fetch="join" cascade="save-update"/>
+		<!--考勤日期 -->
+		<property name="date" type="string" unique-key="student_abn_attendance" length="10"/>
+		<!--考勤段 -->
+		<property name="segment" type="integer" unique-key="student_abn_attendance"/>
+		<!--考勤异常状态(1-迟到，2-病假，3-事假，4-其他) -->
+		<property name="status" type="integer"/>
+		<!--记录创建用户ID -->
+		<property name="createUserId" type="string" length="64"/>
+		<!--记录创建用户姓名 -->
+		<property name="createUserName" type="string" length="32"/>
+		<!--记录创建时间-->
+		<property name="createTime" type="date"/>
+	</class>
 </hibernate-mapping>
