@@ -10,7 +10,7 @@ import java.util.Date;
  * */
 public class StudentAbnAttendance implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id,date,createUserId,createUserName;
+	private String id,date,remarks,createUserId,createUserName;
 	private Student student;
 	private Integer segment,status;
 	private Date createTime;
@@ -64,6 +64,21 @@ public class StudentAbnAttendance implements Serializable {
 	 * */
 	public void setDate(String date) {
 		this.date = date;
+	}
+	/**
+	 * 获取备注信息。
+	 * @return 备注信息。
+	 * */
+	public String getRemarks() {
+		return remarks;
+	}
+	/**
+	 * 设置备注信息。
+	 * @param remarks
+	 * 	备注信息。
+	 * */
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 	/**
 	 * 获取考勤段(1-早，2-午)。
