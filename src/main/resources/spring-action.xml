@@ -43,6 +43,10 @@
 	<bean name="UserAction" class="ipower.studentbehaviors.action.UserAction">
 		<property name="service" ref="userService"/>
 	</bean>
+	<!--学生考勤 -->
+	<bean name="AttendanceAction" class="ipower.studentbehaviors.action.AttendanceAction">
+		<property name="service" ref="attendanceService"/>
+	</bean>
 	<!--学生考勤异常 -->
 	<bean name="StudentAbnAttendanceAction" class="ipower.studentbehaviors.action.StudentAbnAttendanceAction">
 		<property name="service" ref="studentAbnAttendanceService"/>

@@ -10,9 +10,15 @@ import ipower.model.Paging;
  * */
 public class AttendanceInfo extends Paging {
 	private static final long serialVersionUID = 1L;
-	private String id,studentId,studentName,date,gender,remarks,createUserId,createUserName;;
+	private String id,classId,studentId,studentName,date,gender,remarks,createUserId,createUserName;;
 	private Integer segment,status;
 	private Date createTime;
+	/**
+	 * 构造函数。
+	 * */
+	public AttendanceInfo(){
+		this.setStatus(0);
+	}
 	/**
 	 * 获取考勤ID。
 	 * @return 考勤ID
@@ -27,6 +33,21 @@ public class AttendanceInfo extends Paging {
 	 * */
 	public void setId(String id) {
 		this.id = id;
+	}
+	/**
+	 * 获取班级ID。
+	 * @return 班级ID。
+	 * */
+	public String getClassId() {
+		return classId;
+	}
+	/**
+	 * 设置班级ID。
+	 * @param classId
+	 * 	班级ID
+	 * */
+	public void setClassId(String classId) {
+		this.classId = classId;
 	}
 	/**
 	 * 获取学生ID。

@@ -22,6 +22,7 @@ import ipower.studentbehaviors.service.IStudentAbnAttendanceService;
 public class StudentAbnAttendanceServiceImpl extends DataServiceImpl<StudentAbnAttendance,StudentAbnAttendanceInfo> implements IStudentAbnAttendanceService{
 	private IStudentAbnAttendanceDao studentAbnAttendanceDao;
 	private IStudentDao studentDao;
+	
 	@Override
 	public void setStudentAbnAttendanceDao(IStudentAbnAttendanceDao studentAbnAttendanceDao) {
 		this.studentAbnAttendanceDao = studentAbnAttendanceDao;
