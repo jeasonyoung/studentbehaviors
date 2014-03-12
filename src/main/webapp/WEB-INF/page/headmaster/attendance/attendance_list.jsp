@@ -76,15 +76,15 @@ $(function(){
 		toolbar:"#headmaster_attendancelist_dg_toolbar"
 	});
 	//class
-	/* var ddl_class = $("#headmaster_attendancelist_dg_toolbar input[name=classId]").combobox({
+	var ddl_class = $("#headmaster_attendancelist_dg_toolbar input[name=classId]").combobox({
 		url:"${pageContext.request.contextPath}/settings/headmaster!classes.action?teacherId=23f056b2-1c66-4666-8c9d-160855d9bca3",
 		valueField:"id",
 		textField:"name"
-	}); */
+	}); 
 	//search
 	headmaster_attendancelist_dg_search = function(){
 		dg.datagrid("load",{
-			//classId:ddl_class.combobox("getValue"),
+			classId:ddl_class.combobox("getValue"),
 			date:$("#headmaster_attendancelist_dg_toolbar input[name=date]").val(),
 			segment:$("#headmaster_attendancelist_dg_toolbar input[name=segment]:checked").val(),
 			studentName:$("#headmaster_attendancelist_dg_toolbar input[name=studentName]").val()
@@ -95,23 +95,17 @@ $(function(){
 </script>
 <table id="headmaster_attendancelist_dg"></table>
 <div id="headmaster_attendancelist_dg_toolbar" style="height:auto;">
-	<div style="float:left;padding:5px;">
-		<div style="float:left;">
-			<span>日期：</span>
-			<input name="date" type="text" class="easyui-datebox" style="width:128px;"/>
-		</div>
-		<div style="float:left;margin-left:20px;">
-			<span>班级：</span>
-			<input name="classId" type="text" style="width:168px;"/>
-		</div>
-		<div style="float:left;margin-left:20px;">
-			<span>学生姓名：</span>
-			<input name="studentName" type="text" style="width:168px;"/>
-		</div>
-		<div style="float:left;margin-left:20px;">
-			<input name="segment" type="radio" value="1"/><span>晨检</span>
-			<input name="segment" type="radio" value="2"/><span>午检</span>
-		</div>
-		<a href="#" class="easyui-linkbutton" style="float:left;margin-left:20px;" onclick="headmaster_attendancelist_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a>
-	</div>
+	<span>日期：</span>
+	<input name="date" type="text" class="easyui-datebox" style="width:128px;"/>
+	
+	<span>班级：</span>
+	<input name="classId" type="text" style="width:168px;"/>
+	
+	<span>学生姓名：</span>
+	<input name="studentName" type="text" style="width:168px;"/>
+	
+	<input name="segment" type="radio" value="1"/><span>晨检</span>
+	<input name="segment" type="radio" value="2"/><span>午检</span>
+	
+	<a href="#" class="easyui-linkbutton" onclick="headmaster_attendancelist_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a>
 </div>
