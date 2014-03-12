@@ -41,6 +41,9 @@ public class StudentAbnAttendanceServiceImpl extends DataServiceImpl<StudentAbnA
 		if(info.getSort() != null && info.getSort().equalsIgnoreCase("studentName")){
 			info.setSort("student.name");
 		}
+		if(info.getSort() != null && info.getSort().equalsIgnoreCase("className")){
+			info.setSort("student.clazz.name");
+		}
 		if(info.getSort() != null && !info.getSort().trim().isEmpty()){
 			hql += " order by s." + info.getSort() + " " + info.getOrder();
 		}
@@ -55,6 +58,10 @@ public class StudentAbnAttendanceServiceImpl extends DataServiceImpl<StudentAbnA
 		if(data.getStudent() != null){
 			info.setStudentId(data.getStudent().getId());
 			info.setStudentName(data.getStudent().getName());
+			if(data.getStudent().getClazz() != null){
+				info.setClassId(data.getStudent().getClazz().getId());
+				info.setClassName(data.getStudent().getClazz().getName());
+			}
 		}
 		return info;
 	}
@@ -69,13 +76,17 @@ public class StudentAbnAttendanceServiceImpl extends DataServiceImpl<StudentAbnA
 
 	@Override
 	protected String addWhere(StudentAbnAttendanceInfo info, String hql, Map<String, Object> parameters) {
+		if(info.getClassId() != null && !info.getClassId().trim().isEmpty()){
+			hql += " and (s.student.clazz.id = :classId) ";
+			parameters.put("classId", info.getClassId());
+		}
 		if(info.getStudentName() != null && !info.getStudentName().trim().isEmpty()){
 			hql += " and (s.student.name like :studentName) ";
 			parameters.put("studentName", "%" + info.getStudentName() + "%");
 		}
 		if(info.getDate() != null && !info.getDate().trim().isEmpty()){
-			hql += " and (s.date like :date)";
-			parameters.put("date", info.getDate() + "%");
+			hql += " and (s.date = :date)";
+			parameters.put("date", info.getDate());
 		}
 		if(info.getCreateUserId() != null && !info.getCreateUserId().trim().isEmpty()){
 			hql += " and (s.createUserId = :createUserId)";

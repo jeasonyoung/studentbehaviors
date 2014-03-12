@@ -3,7 +3,7 @@
 <!--
 $(function(){
 	//class
-	var ddl_class = $("#headmaster_attendance_dg_toolbar input[name=classId]").combobox({
+	var ddl_class = $("#headmaster_attendancerecord_dg_toolbar input[name=classId]").combobox({
 		url:"${pageContext.request.contextPath}/settings/headmaster!classes.action?teacherId=23f056b2-1c66-4666-8c9d-160855d9bca3",
 		required:true,
 		valueField:"id",
@@ -11,25 +11,25 @@ $(function(){
 		onChange:function(newValue,oldValue){
 			if(newValue == "") return;
 			if(newValue != oldValue && query().date != "") {
-				 headmaster_attendance_dg_search();
+				 headmaster_attendancerecord_dg_search();
 			}
 		}
 	});
 	//date
-	var record_date = $("#headmaster_attendance_dg_toolbar input[name=date]").datebox({
+	var record_date = $("#headmaster_attendancerecord_dg_toolbar input[name=date]").datebox({
 		required:true,
 		onChange:function(newValue,oldValue){
 			if(oldValue == "") return;
 			if(newValue != oldValue && query().classId != "") {
-				 headmaster_attendance_dg_search();
+				 headmaster_attendancerecord_dg_search();
 			}
 		}
 	});
 	record_date.datebox("setValue","<%out.print(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));%>");
 	//segment
-	$("#headmaster_attendance_dg_toolbar input[name=segment]").change(function(){
+	$("#headmaster_attendancerecord_dg_toolbar input[name=segment]").change(function(){
 		if(query().classId != "") {
-			 headmaster_attendance_dg_search();
+			 headmaster_attendancerecord_dg_search();
 		}
 	});
 	//query
@@ -37,11 +37,11 @@ $(function(){
 		return {
 			classId:ddl_class.combobox("getValue"),
 			date:record_date.datebox("getValue"),
-			segment:$("#headmaster_attendance_dg_toolbar input[name=segment]:checked").val()
+			segment:$("#headmaster_attendancerecord_dg_toolbar input[name=segment]:checked").val()
 		};
 	};
 	//list
-	var dg = $("#headmaster_attendance_dg").datagrid({
+	var dg = $("#headmaster_attendancerecord_dg").datagrid({
 		url:"${pageContext.request.contextPath}/headmaster/attendance!datagrid.action",
 		queryParams:query(),
 		fit:true,
@@ -54,7 +54,7 @@ $(function(){
 		sortName:"studentName",
 		sortOrder:"desc",
 		columns:[[{
-			title:"姓名",
+			title:"学生姓名",
 			field:"studentName",
 			width:20,
 			sortable:true
@@ -118,7 +118,7 @@ $(function(){
 			sortable:true,
 			editor:"textarea"
 		}]],
-		toolbar:"#headmaster_attendance_dg_toolbar",
+		toolbar:"#headmaster_attendancerecord_dg_toolbar",
 		onClickRow:function(index,row){
 			if(editIndex != index){
 				if(endEditting()){
@@ -166,7 +166,7 @@ $(function(){
 					classId:row.classId,
 					studentId:row.studentId,
 					date:record_date.datebox("getValue"),
-					segment:$("#headmaster_attendance_dg_toolbar input[name=segment]:checked").val(),
+					segment:$("#headmaster_attendancerecord_dg_toolbar input[name=segment]:checked").val(),
 					status:row.status,
 					remarks:row.remarks
 				},
@@ -184,7 +184,7 @@ $(function(){
 		}
 	}
 	//calendar
-	$("#headmaster_attendance_record_calendar").calendar({
+	$("#headmaster_attendancerecord_calendar").calendar({
 		onSelect:function(date){
 			var m = date.getMonth()+1,d = date.getDate();
 			var data = date.getFullYear() + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
@@ -192,7 +192,7 @@ $(function(){
 		}
 	});
 	//search
-	headmaster_attendance_dg_search = function(){
+	headmaster_attendancerecord_dg_search = function(){
 		dg.datagrid("load",query());
 	};
 });
@@ -200,8 +200,8 @@ $(function(){
 </script>
 <div class="easyui-layout" data-options="fit:true">
 	<div class="easyui-layout" data-options="region:'center',border:false">
-		<table id="headmaster_attendance_dg"></table>
-		<div id="headmaster_attendance_dg_toolbar" style="height:auto;">
+		<table id="headmaster_attendancerecord_dg"></table>
+		<div id="headmaster_attendancerecord_dg_toolbar" style="height:auto;">
 			<div style="float:left;padding:5px;">
 				<div style="float:left;">
 					<span>日期：</span>
@@ -215,11 +215,11 @@ $(function(){
 					<input name="segment" type="radio" value="1" checked="checked"/><span>晨检</span>
 					<input name="segment" type="radio" value="2"/><span>午检</span>
 				</div>
-				<a href="#" class="easyui-linkbutton" style="float:left;margin-left:20px;" onclick="headmaster_attendance_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a>
+				<a href="#" class="easyui-linkbutton" style="float:left;margin-left:20px;" onclick="headmaster_attendancerecord_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a>
 			</div>
 		</div>
 	</div>
 	<div data-options="region:'east',width:198" style="padding:10px;">
-		<div id="headmaster_attendance_record_calendar" class="easyui-calendar" style="width:180px;height:180px;"></div>
+		<div id="headmaster_attendancerecord_calendar" class="easyui-calendar" style="width:180px;height:180px;"></div>
 	</div>
 </div>

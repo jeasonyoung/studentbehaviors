@@ -52,5 +52,9 @@
 		<action name="attendance" class="AttendanceAction">
 			<result name="list">/WEB-INF/page/headmaster/attendance/attendance_record.jsp</result>
 		</action>
+		<!--学生考勤异常 -->
+		<action name="abnattendance" class="AbnAttendanceAction">
+			<result name="list">/WEB-INF/page/headmaster/attendance/attendance_list.jsp</result>
+		</action>
 	</package>
 </struts>

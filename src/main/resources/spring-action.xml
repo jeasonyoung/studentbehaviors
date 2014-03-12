@@ -48,7 +48,7 @@
 		<property name="service" ref="attendanceService"/>
 	</bean>
 	<!--学生考勤异常 -->
-	<bean name="StudentAbnAttendanceAction" class="ipower.studentbehaviors.action.StudentAbnAttendanceAction">
+	<bean name="AbnAttendanceAction" class="ipower.studentbehaviors.action.AbnAttendanceAction">
 		<property name="service" ref="studentAbnAttendanceService"/>
 	</bean>
 </beans>

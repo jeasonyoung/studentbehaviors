@@ -3,11 +3,11 @@ package ipower.studentbehaviors.action;
 import ipower.studentbehaviors.modal.StudentAbnAttendanceInfo;
 
 /**
- * 学生异常考勤Action。
+ * 学生考勤异常Action.
  * @author yangyong.
- * @since 2014-03-07.
+ * @since 2014-03-12.
  * */
-public class StudentAbnAttendanceAction extends BaseDataAction<StudentAbnAttendanceInfo> {
+public class AbnAttendanceAction extends BaseDataAction<StudentAbnAttendanceInfo> {
 	private StudentAbnAttendanceInfo info = new StudentAbnAttendanceInfo();
 	
 	@Override

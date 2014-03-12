@@ -12,7 +12,7 @@
 	<module id="AAA00000000000000000000000000002" name="班主任" uri="" order="2">
 		<!-- <module id="AAA00000000000000000000000000102" name="设置座位表" uri="" order="1"/> -->
 		<module id="AAA00000000000000000000000000202" name="晨/午检登记" uri="/headmaster/attendance.action" order="2"/>
-		<module id="AAA00000000000000000000000000302" name="查看本班登记" uri="" order="3"/>
+		<module id="AAA00000000000000000000000000302" name="查看考勤异常" uri="/headmaster/abnattendance.action" order="3"/>
 	</module>
 	<module id="AAA00000000000000000000000000003" name="校级管理" uri="" order="3">
 		<module id="AAA00000000000000000000000000103" name="晨/午检登记" uri="" order="1"/>
