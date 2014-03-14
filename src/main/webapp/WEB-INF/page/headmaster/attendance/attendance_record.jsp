@@ -4,7 +4,7 @@
 $(function(){
 	//class
 	var ddl_class = $("#headmaster_attendancerecord_dg_toolbar input[name=classId]").combobox({
-		url:"${pageContext.request.contextPath}/settings/headmaster!classes.action?teacherId=23f056b2-1c66-4666-8c9d-160855d9bca3",
+		url:"${pageContext.request.contextPath}/settings/headmaster!classes.action?teacherId=bad3dd5d-ea39-4953-bd16-8b3cfa7765d3",
 		required:true,
 		valueField:"id",
 		textField:"name",

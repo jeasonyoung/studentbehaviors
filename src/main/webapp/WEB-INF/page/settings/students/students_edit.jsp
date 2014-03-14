@@ -7,6 +7,17 @@ $(function(){
 		valueField:"id",
 		textField:"name"
 	});
+	$("#settings_studentsedit_form input[name=status]").combobox({
+		valueField:"value",
+		textField:"name",
+		data:[{
+			name:"不在校",
+			value:0
+		},{
+			name:"在校",
+			value:1
+		}]
+	});
 });
 //-->
 </script>

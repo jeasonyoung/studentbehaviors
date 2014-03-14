@@ -44,12 +44,19 @@ $(function(){
 		},{
 			title:"入学年度",
 			field:"joinYear",
-			width:30,
+			width:20,
+			align:"center",
 			sortable:true
 		},{
 			title:"状态",
 			field:"status",
-			width:30,
+			width:20,
+			align:"center",
+			formatter:function(value,row,index){
+				if(value == 0) return "不在校";
+				if(value == 1) return "在校";
+				return value;
+			},
 			sortable:true
 		}]],
 		toolbar:"#settings_classes_dg_toolbar",

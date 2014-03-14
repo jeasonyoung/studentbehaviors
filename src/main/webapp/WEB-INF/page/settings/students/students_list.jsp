@@ -58,6 +58,11 @@ $(function(){
 			field:"status",
 			width:20,
 			align:"center",
+			formatter:function(value,row,index){
+				if(value == 0) return "不在校";
+				if(value == 1) return "在校";
+				return value;
+			},
 			sortable:true
 		}]],
 		toolbar:"#settings_students_dg_toolbar",
@@ -70,7 +75,7 @@ $(function(){
 		var d = $("<div/>").dialog({
 			title:title,
 			width:520,
-			height:170,
+			height:210,
 			href:"${pageContext.request.contextPath}/settings/students!edit.action",
 			modal:true,
 			buttons:[{

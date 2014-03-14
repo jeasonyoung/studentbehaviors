@@ -1,4 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script type="text/javascript">
+<!--
+$(function(){
+	$("#settings_classesedit_form input[name=status]").combobox({
+		valueField:"value",
+		textField:"name",
+		data:[{
+			name:"不在校",
+			value:0
+		},{
+			name:"在校",
+			value:1
+		}]
+	});
+});
+//-->
+</script>
 <form id="settings_classesedit_form" class="edit" method="POST">
 	<dd style="marign-top:2px;">
 		<div style="float:left;">
