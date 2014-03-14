@@ -214,7 +214,7 @@ $(function(){
 				$("#headmaster_attendancerecord_dg_toolbar_classes").html("应到：["+ class_students_count +"]人");
 				$("#headmaster_attendancerecord_dg_toolbar_classes_truth").html("实到：["+ class_students_count +"]人");
 				$("#headmaster_attendancerecord_dg_toolbar_classes_abn").html("缺勤：[0]人");
-				$("#headmaster_attendancerecord_dg_toolbar span:hidden").show();
+				//$("#headmaster_attendancerecord_dg_toolbar span:hidden").show();
 			}
 		});
 	};
@@ -278,7 +278,7 @@ $(function(){
 			<input name="segment" type="radio" value="2"/><span>午检</span>
 				 
 			<a href="#" class="easyui-linkbutton" style="margin-left:20px;" onclick="headmaster_attendancerecord_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a> 
-			<span style="margin-left:2px;border:solid 1px #ccc;display:none;padding:5px;">
+			<span style="margin-left:2px;border:solid 1px #ccc;display:block;padding:5px;">
 				<span id="headmaster_attendancerecord_dg_toolbar_classes"></span>
 				<span id="headmaster_attendancerecord_dg_toolbar_classes_truth"></span>
 				<span id="headmaster_attendancerecord_dg_toolbar_classes_abn"></span>
