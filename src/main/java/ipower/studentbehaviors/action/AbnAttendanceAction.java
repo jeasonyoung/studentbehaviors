@@ -1,6 +1,9 @@
 package ipower.studentbehaviors.action;
 
+import java.io.IOException;
+
 import ipower.studentbehaviors.modal.StudentAbnAttendanceInfo;
+import ipower.studentbehaviors.service.IStudentAbnAttendanceService;
 
 /**
  * 学生考勤异常Action.
@@ -19,5 +22,12 @@ public class AbnAttendanceAction extends BaseDataAction<StudentAbnAttendanceInfo
 	protected String deletePrimaryString() {
 		return this.getModel().getId();
 	}
-
+	
+	public void total() throws IOException{
+		if(this.service instanceof IStudentAbnAttendanceService){
+			this.writeJson(((IStudentAbnAttendanceService)this.service).total(this.getModel().getClassId(), 
+																			  this.getModel().getDate(), 
+																			  this.getModel().getSegment()));
+		}
+	}
 }

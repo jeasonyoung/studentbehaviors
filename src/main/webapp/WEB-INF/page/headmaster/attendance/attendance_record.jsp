@@ -11,7 +11,8 @@ $(function(){
 		onChange:function(newValue,oldValue){
 			if(newValue == "") return;
 			if(newValue != oldValue && query().date != "") {
-				 headmaster_attendancerecord_dg_search();
+				class_students(newValue);
+				headmaster_attendancerecord_dg_search();
 			}
 		}
 	});
@@ -172,8 +173,9 @@ $(function(){
 				},
 				dataType:"json",
 				success:function(data){
-					//console.info(data);
 					if(data.success){
+						var q = query();
+						class_students_abn(q.classId,q.date,q.segment);
 						dg.datagrid("updateRow",{
 							index:index,
 							row:data.data
@@ -193,7 +195,71 @@ $(function(){
 	});
 	//search
 	headmaster_attendancerecord_dg_search = function(){
-		dg.datagrid("load",query());
+		var q = query();
+		dg.datagrid("load",q);
+		class_students_abn(q.classId,q.date,q.segment);
+	};
+	//class_students
+	var class_students_count = 0;
+	function class_students(classId){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/settings/students!number.action",
+			type:"POST",
+			data:{
+				classId:classId
+			},
+			dataType:"json",
+			success:function(data){
+				class_students_count = data;
+				$("#headmaster_attendancerecord_dg_toolbar_classes").html("应到：["+ class_students_count +"]人");
+				$("#headmaster_attendancerecord_dg_toolbar_classes_truth").html("实到：["+ class_students_count +"]人");
+				$("#headmaster_attendancerecord_dg_toolbar_classes_abn").html("缺勤：[0]人");
+				$("#headmaster_attendancerecord_dg_toolbar span:hidden").show();
+			}
+		});
+	};
+	//class_abn
+	function class_students_abn(classId,date,segment){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/headmaster/abnattendance!total.action",
+			type:"POST",
+			data:{
+				classId:classId,
+				date:date,
+				segment:segment
+			},
+			dataType:"json",
+			success:function(data){
+				console.info(data);
+				if(!data)return;
+				$("#headmaster_attendancerecord_dg_toolbar_classes_truth").html("实到：["+ (class_students_count - data.total) +"]人");
+				var html = "缺勤：["+ data.total +"]人";
+				if(data.abns && $.isArray(data.abns)){
+					html += "("
+					$.each(data.abns,function(i,n){
+						if(i > 0) html += ",";
+						if(n.status == 1){
+							html += "迟到:" + n.count;
+							return;
+						}
+						if(n.status == 2){
+							html += "病假:" + n.count;
+							return;
+						}
+						if(n.status == 3){
+							html += "事假:" + n.count;
+							return;
+						}
+						if(n.status == 4){
+							html += "其他:" + n.count;
+							return;
+						}
+					});
+					html += ")";
+				}
+				$("#headmaster_attendancerecord_dg_toolbar_classes_abn").html(html);
+			}
+		});
 	};
 });
 //-->
@@ -202,21 +268,21 @@ $(function(){
 	<div class="easyui-layout" data-options="region:'center',border:false">
 		<table id="headmaster_attendancerecord_dg"></table>
 		<div id="headmaster_attendancerecord_dg_toolbar" style="height:auto;">
-			<div style="float:left;padding:5px;">
-				<div style="float:left;">
-					<span>日期：</span>
-					<input name="date" type="text" style="width:98px;"/>
-				</div>
-				<div style="float:left;margin-left:20px;">
-					<span>班级：</span>
-					<input name="classId" type="text" style="width:168px;"/>
-				</div>
-				<div style="float:left;margin-left:20px;">
-					<input name="segment" type="radio" value="1" checked="checked"/><span>晨检</span>
-					<input name="segment" type="radio" value="2"/><span>午检</span>
-				</div>
-				<a href="#" class="easyui-linkbutton" style="float:left;margin-left:20px;" onclick="headmaster_attendancerecord_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a>
-			</div>
+			<span>日期：</span>
+			<input name="date" type="text" style="width:98px;"/>
+		 
+			<span>班级：</span>
+			<input name="classId" type="text" style="width:168px;"/>
+		 
+			<input name="segment" type="radio" value="1" checked="checked"/><span>晨检</span>
+			<input name="segment" type="radio" value="2"/><span>午检</span>
+				 
+			<a href="#" class="easyui-linkbutton" style="margin-left:20px;" onclick="headmaster_attendancerecord_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a> 
+			<span style="margin-left:2px;border:solid 1px #ccc;display:none;padding:5px;">
+				<span id="headmaster_attendancerecord_dg_toolbar_classes"></span>
+				<span id="headmaster_attendancerecord_dg_toolbar_classes_truth"></span>
+				<span id="headmaster_attendancerecord_dg_toolbar_classes_abn"></span>
+			</span>
 		</div>
 	</div>
 	<div data-options="region:'east',width:198" style="padding:10px;">

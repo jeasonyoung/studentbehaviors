@@ -28,4 +28,10 @@ public class StudentAction extends BaseDataAction<StudentInfo> {
 			this.writeJson(((IStudentService)this.service).loadStudents(this.getModel().getClassId()));
 		}
 	}
+	
+	public void number() throws IOException{
+		if(this.service instanceof IStudentService){
+			this.writeJson(((IStudentService)this.service).number(this.getModel().getClassId()));
+		}
+	}
 }

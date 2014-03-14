@@ -32,4 +32,10 @@ public interface IStudentService extends IDataService<StudentInfo> {
 	 * 	学生数据。
 	 * */
 	List<StudentInfo> loadStudents(String classId);
+	/**
+	 * 班级下的人数。
+	 * @param classId
+	 * 	班级ID。
+	 * */
+	Integer number(String classId);
 }

@@ -127,4 +127,13 @@ public class StudentServiceImpl extends DataServiceImpl<Student, StudentInfo> im
 		List<Student> list = this.studentDao.find(hql, parameters, null, null);
 		return this.changeModel(list);
 	}
+	@Override
+	public Integer number(String classId) {
+		final String hql = "select count(*) from Student s where s.status = 1 and s.clazz.id = :classId";
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("classId", classId);
+		
+		return this.studentDao.count(hql, parameters).intValue();
+	}
 }
