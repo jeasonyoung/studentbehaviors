@@ -51,4 +51,8 @@
 	<bean name="AbnAttendanceAction" class="ipower.studentbehaviors.action.AbnAttendanceAction">
 		<property name="service" ref="studentAbnAttendanceService"/>
 	</bean>
+	<!--用户登录 -->
+	<bean name="LoginAction" class="ipower.studentbehaviors.action.LoginAction">
+		<property name="userAuthentication" ref="authentication"/>
+	</bean>
 </beans>

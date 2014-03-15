@@ -56,5 +56,9 @@
 		<action name="abnattendance" class="AbnAttendanceAction">
 			<result name="list">/WEB-INF/page/headmaster/attendance/attendance_list.jsp</result>
 		</action>
+		<!--用户登录 -->
+		<action name="login" class="LoginAction">
+			<result name="list">/WEB-INF/page/login/login_list.jsp</result>
+		</action>
 	</package>
 </struts>
