@@ -23,6 +23,14 @@ public interface IUserService extends IDataService<UserInfo> {
 	 * */
 	void setTeacherDao(ITeacherDao teacherDao);
 	/**
+	 * 加载用户信息。
+	 * @param account
+	 * 	用户账号。
+	 * @return
+	 * 	用户信息。
+	 * */
+	UserInfo loadUser(String account);
+	/**
 	 * 获取用户角色。
 	 * @param teacherId
 	 * 	角色Id。

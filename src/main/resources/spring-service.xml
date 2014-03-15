@@ -44,6 +44,13 @@
 		<property name="userDao" ref="userDao"/>
 		<property name="teacherDao" ref="teacherDao"/>
 	</bean>
+	<!--用户认证服务 -->
+	<bean id="authentication" class="ipower.studentbehaviors.service.impl.UserAuthenticationServiceImpl">
+		<property name="url" value="${login_Url}"/>
+		<property name="userName" value="${login_UserName}"/>
+		<property name="userPassword" value="${login_Password}"/>
+		<property name="userService" ref="userService"/>
+	</bean>
 	<!--学生考勤服务 -->
 	<bean id="attendanceService" class="ipower.studentbehaviors.service.impl.AttendanceServiceImpl">
 		<property name="studentAbnAttendanceDao" ref="studentAbnAttendanceDao"/>

@@ -1,15 +1,18 @@
 package ipower.studentbehaviors.action;
 
+import ipower.studentbehaviors.modal.UserInfo;
 import ipower.utils.XmlUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 import org.w3c.dom.Document;
 
 import com.alibaba.fastjson.JSON;
@@ -20,7 +23,40 @@ import com.opensymphony.xwork2.Action;
  * @author 杨勇.
  * @since 2013-11-27.
  * */
-public abstract class BaseAction implements Action {
+public abstract class BaseAction implements Action,SessionAware {
+	public final String CONST_CURRENT_USER = "current_user";
+	private Map<String, Object> session;
+	/**
+	 * 获取Session对象。
+	 * @return Session对象。
+	 * */
+	public Map<String, Object> getSession(){
+		return this.session;
+	}
+	/**
+	 * 设置Session。
+	 * @param session
+	 * 	Session。
+	 * */
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
+	/**
+	 * 获取当前用户信息。
+	 * @return 当前用户信息。
+	 * */
+	protected synchronized UserInfo getCurrentUser(){
+		Map<String, Object> map = this.getSession();
+		if(map == null || map.size() == 0) return null;
+		Object object = map.get(CONST_CURRENT_USER);
+		if(object == null) return null;
+		if(object instanceof UserInfo){
+			return (UserInfo)object;
+		}
+		return null;
+	}
+	
 	/**
 	 * 将对象转换成JSON字符串，并响应回前台。
 	 * @param o

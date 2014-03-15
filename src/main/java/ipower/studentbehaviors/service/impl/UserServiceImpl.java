@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.BeanUtils;
+
 import ipower.studentbehaviors.dao.ITeacherDao;
 import ipower.studentbehaviors.dao.IUserDao;
 import ipower.studentbehaviors.domain.Teacher;
@@ -157,5 +159,31 @@ public class UserServiceImpl extends DataServiceImpl<User,UserInfo> implements I
 				this.userDao.delete(list.get(i));
 			}
 		}
+	}
+
+	@Override
+	public UserInfo loadUser(String account) {
+		if(account == null || account.trim().isEmpty()) return null;
+		final String hql = "from User u where u.teacher.account = :account ";
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("account", account);
+		List<User> list = this.userDao.find(hql, parameters, null, null);
+		if(list == null || list.size() == 0) return null;
+		UserInfo info = null;
+		for(int i = 0; i < list.size(); i++){
+			User u = list.get(i);
+			if(u == null) continue;
+			if(info == null && u.getTeacher() != null){
+				info = new UserInfo();
+				info.setTeacherId(u.getTeacher().getId());
+				info.setTeacherName(u.getTeacher().getName());
+			}
+			if(info == null)continue;
+			if(info.getRole() != null && !info.getRole().trim().isEmpty()){
+				info.setRole(info.getRole() + ",");
+			}
+			info.setRole(info.getRole() + u.getRole());
+		}
+		return info;
 	}
 }
