@@ -10,5 +10,6 @@
     <!--decorator节点指定了模板的位置和文件名，通过pattern来指定哪些路径引用哪个模板-->
     <decorator name="main" page="TemplateFrameSet.jsp">
         <pattern>/index.action</pattern>
+        <pattern>/login.action</pattern>
     </decorator>
 </decorators>

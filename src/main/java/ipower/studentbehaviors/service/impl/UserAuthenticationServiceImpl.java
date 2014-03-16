@@ -3,13 +3,13 @@ package ipower.studentbehaviors.service.impl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
-import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
 import ipower.studentbehaviors.modal.UserInfo;
@@ -90,16 +90,27 @@ public class UserAuthenticationServiceImpl implements IUserAuthenticationService
 			Document document = saxReader.read(new ByteArrayInputStream(resultXml.getBytes("UTF-8")));
 			if(document == null) return false;
 			Element root = document.getRootElement();
-			if(root == null) return false;
-			Node node = root.selectSingleNode("//VerifyUserResult");
-			if(node == null) return false;
-			if(node instanceof Element){
-				String result = ((Element)node).getTextTrim();
-				if(result == null || result.trim().isEmpty()) return false;
-				return Boolean.parseBoolean(result);
-			}
+			String result = this.findNodeValue(root, "VerifyUserResult");
+			if(result == null || result.trim().isEmpty()) return false;
+			return Boolean.parseBoolean(result);
 		}
 		return false;
+	}
+	private String findNodeValue(Element root, String nodeName){
+		if(root == null || nodeName == null || nodeName.trim().isEmpty()) return null;
+		if(root.getName().equalsIgnoreCase(nodeName)){
+			return root.getTextTrim();
+		}
+		List<?> list = root.elements();
+		if(list == null || list.size() == 0) return null;
+		for(int i = 0; i < list.size(); i++){
+			Element e = (Element)list.get(i);
+			if(e != null){
+				String result = this.findNodeValue(e, nodeName);
+				if(result != null && !result.trim().isEmpty()) return result;
+			}
+		}
+		return null;
 	}
 
 	@Override
