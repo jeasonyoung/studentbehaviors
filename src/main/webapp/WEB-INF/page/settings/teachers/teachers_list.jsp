@@ -153,7 +153,7 @@ $(function(){
 				if(!r)return;
 				var ids = [];
 				for(var i = 0; i < rows.length; i++){
-					ids.push(rows[i].id);
+					ids.push(rows[i].id + "#" + rows[i].role);
 				}
 				$.ajax({
 					url:"${pageContext.request.contextPath}/settings/teachers!delete.action",

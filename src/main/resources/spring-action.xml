@@ -3,56 +3,56 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<!--首页 -->
 	<bean name="IndexAction" class="ipower.studentbehaviors.action.IndexAction">
-		<property name="menuService" ref="MenuService"/>
+		<property name="menuService" ref="menuService"/>
 		<property name="systemId" value="${current_systemId}"/>
 	</bean>
 	<!--菜单-->
-	<bean name="MenuAction" class="ipower.studentbehaviors.action.MenuAction">
-		<property name="menuService" ref="MenuService"/>
+	<bean name="MenuAction" class="ipower.studentbehaviors.action.MenuAction" scope="prototype">
+		<property name="menuService" ref="menuService"/>
 		<property name="systemId" value="${current_systemId}"/>
 	</bean>
 	<!--druid -->
-	<bean name="DruidAction" class="ipower.studentbehaviors.action.DataSourceAction"/>
+	<bean name="DruidAction" class="ipower.studentbehaviors.action.DataSourceAction" scope="prototype"/>
 	<!--学校 -->
-	<bean name="SchoolAction" class="ipower.studentbehaviors.action.SchoolAction">
+	<bean name="SchoolAction" class="ipower.studentbehaviors.action.SchoolAction" scope="prototype">
 		<property name="schoolService" ref="schoolService"/>
 	</bean>
 	<!--教师 -->
-	<bean name="TeachersAction" class="ipower.studentbehaviors.action.TeachersAction"> 
+	<bean name="TeachersAction" class="ipower.studentbehaviors.action.TeachersAction" scope="prototype"> 
 		<property name="service" ref="teachersService"/>
 	</bean>
 	<!--班级 -->
-	<bean name="ClassAction" class="ipower.studentbehaviors.action.ClassAction">
+	<bean name="ClassAction" class="ipower.studentbehaviors.action.ClassAction" scope="prototype">
 		<property name="service" ref="classService"/>
 	</bean>
 	<!--学生-->
-	<bean name="StudentAction" class="ipower.studentbehaviors.action.StudentAction">
+	<bean name="StudentAction" class="ipower.studentbehaviors.action.StudentAction" scope="prototype">
 		<property name="service" ref="studentService"/>
 	</bean>
 	<!--数据同步 -->
-	<bean name="SyncAction" class="ipower.studentbehaviors.action.SyncAction">
+	<bean name="SyncAction" class="ipower.studentbehaviors.action.SyncAction" scope="prototype">
 		<property name="syncDataService" ref="syncDataService"/>
 		<property name="classDao" ref="classDao"/>
 		<property name="syncSchoolName" value="${sync_school_name}"/>
 	</bean>
 	<!--班主任 -->
-	<bean name="HeadmasterAction" class="ipower.studentbehaviors.action.HeadmasterAction">
+	<bean name="HeadmasterAction" class="ipower.studentbehaviors.action.HeadmasterAction" scope="prototype">
 		<property name="service" ref="headmasterService"/>
 	</bean>
 	<!--用户 -->
-	<bean name="UserAction" class="ipower.studentbehaviors.action.UserAction">
+	<bean name="UserAction" class="ipower.studentbehaviors.action.UserAction" scope="prototype">
 		<property name="service" ref="userService"/>
 	</bean>
 	<!--学生考勤 -->
-	<bean name="AttendanceAction" class="ipower.studentbehaviors.action.AttendanceAction">
+	<bean name="AttendanceAction" class="ipower.studentbehaviors.action.AttendanceAction" scope="prototype">
 		<property name="service" ref="attendanceService"/>
 	</bean>
 	<!--学生考勤异常 -->
-	<bean name="AbnAttendanceAction" class="ipower.studentbehaviors.action.AbnAttendanceAction">
+	<bean name="AbnAttendanceAction" class="ipower.studentbehaviors.action.AbnAttendanceAction" scope="prototype">
 		<property name="service" ref="studentAbnAttendanceService"/>
 	</bean>
 	<!--用户登录 -->
-	<bean name="LoginAction" class="ipower.studentbehaviors.action.LoginAction">
+	<bean name="LoginAction" class="ipower.studentbehaviors.action.LoginAction" scope="prototype">
 		<property name="userAuthentication" ref="authentication"/>
 	</bean>
 </beans>

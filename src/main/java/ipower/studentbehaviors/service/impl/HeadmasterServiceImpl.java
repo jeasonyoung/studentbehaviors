@@ -108,7 +108,6 @@ public class HeadmasterServiceImpl extends DataServiceImpl<Headmaster,Headmaster
 				info.setId(UUID.randomUUID().toString());
 				data = new Headmaster();
 			}
-			BeanUtils.copyProperties(info, data);
 			if(info.getClassId() != null && (data.getClazz() == null ||!info.getClassId().equalsIgnoreCase(data.getClazz().getId()))){
 				Class clazz = this.classDao.load(Class.class, info.getClassId());
 				if(clazz != null){
@@ -123,13 +122,14 @@ public class HeadmasterServiceImpl extends DataServiceImpl<Headmaster,Headmaster
 					info.setTeacherName(teacher.getName());
 				}
 			}
-			if(isAdded)this.headmasterDao.save(data);
 			if(data.getClazz() != null && (info.getClassName() == null || info.getClassName().trim().isEmpty())){
 				info.setClassName(data.getClazz().getName());
 			}
 			if(data.getTeacher() != null && (info.getTeacherName() == null || info.getTeacherName().trim().isEmpty())){
 				info.setTeacherName(data.getTeacher().getName());
 			}
+			BeanUtils.copyProperties(info, data);
+			if(isAdded)this.headmasterDao.save(data);
 		}
 		return info;
 	}

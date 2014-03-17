@@ -10,7 +10,7 @@
 		<div data-options="region:'north',href:'index!top.action'"  style="height:86px;overflow:hidden;">
 		</div>
 		<!-- left menu -->
-		<div title=" " data-options="region:'west',split:true,href:'index!leftmenu.action'" style="width:200px;overflow:hidden;">
+		<div title='当前用户：<s:property value="userInfo.teacherName"/>' data-options="region:'west',split:true,href:'index!leftmenu.action'" style="width:200px;overflow:hidden;">
 		</div>
 		<!-- workspace -->
 		<div data-options="region:'center',href:'index!workspace.action'" style="overflow:hidden;">

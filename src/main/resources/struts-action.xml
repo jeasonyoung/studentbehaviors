@@ -2,6 +2,20 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<package name="basePackage" extends="struts-default">
+		<!--拦截器 -->
+		<interceptors>
+			<!--身份认证拦截器 -->
+			<interceptor name="authen" class="authenInterceptor"/>
+			<interceptor-stack name="sb_default_stack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="authen"/>			
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="sb_default_stack"/>
+		<!--全局 -->
+		<global-results>
+			<result name="login">/WEB-INF/page/login/login_list.jsp</result>
+		</global-results>
 		<!--首页框架 -->
 		<action name="index!*" class="IndexAction">
 			<result name="success">/WEB-INF/page/index/index.jsp</result>

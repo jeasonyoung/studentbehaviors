@@ -30,6 +30,9 @@ public class HeadmasterAction extends BaseDataAction<HeadmasterInfo> {
 	
 	public void classes() throws IOException{
 		if(this.service instanceof IHeadmasterService){
+			if(this.getUserInfo() != null){
+				this.info.setTeacherId(this.getUserInfo().getTeacherId());
+			}
 			this.writeJson(((IHeadmasterService)this.service).headmasterClasses(this.getModel().getTeacherId()));
 		}
 	}

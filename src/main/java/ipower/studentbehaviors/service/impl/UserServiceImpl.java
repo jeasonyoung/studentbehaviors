@@ -121,7 +121,6 @@ public class UserServiceImpl extends DataServiceImpl<User,UserInfo> implements I
 			}else {
 				data = list.get(0);
 			}
-			BeanUtils.copyProperties(info, data);
 			if(info.getTeacherId() != null && (data.getTeacher() == null || !info.getTeacherId().equalsIgnoreCase(data.getTeacher().getId()))){
 				Teacher teacher = this.teacherDao.load(Teacher.class, info.getTeacherId());
 				if(teacher != null){
@@ -129,10 +128,12 @@ public class UserServiceImpl extends DataServiceImpl<User,UserInfo> implements I
 					info.setTeacherName(teacher.getName());
 				}
 			}
-			if(isAdded)this.userDao.save(data);
-			if(data.getTeacher() != null && (info.getTeacherName() == null || !info.getTeacherName().trim().isEmpty())){
+			if(data.getTeacher() != null && (info.getTeacherName() == null || info.getTeacherName().trim().isEmpty())){
 				info.setTeacherName(data.getTeacher().getName());
 			}
+			
+			BeanUtils.copyProperties(info, data);
+			if(isAdded)this.userDao.save(data);
 		}
 		return info;
 	}
@@ -142,8 +143,8 @@ public class UserServiceImpl extends DataServiceImpl<User,UserInfo> implements I
 		if(ids == null || ids.length == 0) return;
 		for(int i = 0; i < ids.length; i++){
 			String[] arr = ids[i].split("#");
-			if(arr != null && arr.length == 2){
-				this.delete(arr[0], arr[1]);
+			if(arr != null){
+				this.delete(arr[0], arr.length > 1 ? arr[1] : "");
 			}
 		}
 	}

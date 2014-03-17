@@ -77,7 +77,7 @@ $(function(){
 	});
 	//class
 	var ddl_class = $("#headmaster_attendancelist_dg_toolbar input[name=classId]").combobox({
-		url:"${pageContext.request.contextPath}/settings/headmaster!classes.action?teacherId=23f056b2-1c66-4666-8c9d-160855d9bca3",
+		url:"${pageContext.request.contextPath}/settings/headmaster!classes.action",
 		valueField:"id",
 		textField:"name"
 	}); 
