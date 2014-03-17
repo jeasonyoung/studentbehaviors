@@ -1,7 +1,6 @@
 package ipower.studentbehaviors.service;
 
 import ipower.studentbehaviors.dao.IStudentAbnAttendanceDao;
-import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.modal.AbnAttendanceStatistics;
 import ipower.studentbehaviors.modal.StudentAbnAttendanceInfo;
 /**
@@ -16,12 +15,6 @@ public interface IStudentAbnAttendanceService extends IDataService<StudentAbnAtt
 	 * 	学生考勤异常数据访问接口。
 	 * */
 	void setStudentAbnAttendanceDao(IStudentAbnAttendanceDao studentAbnAttendanceDao);
-	/**
-	 * 设置学生考勤异常数据访问接口。
-	 * @param studentDao
-	 * 	学生考勤异常数据访问接口。
-	 * */
-	void setStudentDao(IStudentDao studentDao);
 	/**
 	 * 统计学生异常考勤。
 	 * @param classId

@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 
 import ipower.studentbehaviors.dao.IStudentAbnAttendanceDao;
-import ipower.studentbehaviors.dao.IStudentDao;
-import ipower.studentbehaviors.domain.Student;
 import ipower.studentbehaviors.domain.StudentAbnAttendance;
 import ipower.studentbehaviors.modal.AbnAttendanceStatistics;
 import ipower.studentbehaviors.modal.AbnAttendanceTotal;
@@ -24,16 +21,10 @@ import ipower.studentbehaviors.service.IStudentAbnAttendanceService;
  * */
 public class StudentAbnAttendanceServiceImpl extends DataServiceImpl<StudentAbnAttendance,StudentAbnAttendanceInfo> implements IStudentAbnAttendanceService{
 	private IStudentAbnAttendanceDao studentAbnAttendanceDao;
-	private IStudentDao studentDao;
-	
+		
 	@Override
 	public void setStudentAbnAttendanceDao(IStudentAbnAttendanceDao studentAbnAttendanceDao) {
 		this.studentAbnAttendanceDao = studentAbnAttendanceDao;
-	}
-	
-	@Override
-	public void setStudentDao(IStudentDao studentDao) {
-		this.studentDao = studentDao;
 	}
 	
 	@Override
@@ -112,7 +103,8 @@ public class StudentAbnAttendanceServiceImpl extends DataServiceImpl<StudentAbnA
 
 	@Override
 	public StudentAbnAttendanceInfo update(StudentAbnAttendanceInfo info) {
-		if(info != null){
+		return info;
+		/*if(info != null){
 			boolean isAdded = false;
 			StudentAbnAttendance data = (info.getId() == null || info.getId().trim().isEmpty()) ? null : this.studentAbnAttendanceDao.load(StudentAbnAttendance.class, info.getId());
 			if(isAdded = (data == null)){
@@ -132,19 +124,19 @@ public class StudentAbnAttendanceServiceImpl extends DataServiceImpl<StudentAbnA
 				info.setStudentName(data.getStudent().getName());
 			}
 		}
-		return info;
+		return info;*/
 	}
 
 	@Override
 	public void delete(String[] ids) {
-		if(ids == null || ids.length == 0) return;
+		/*if(ids == null || ids.length == 0) return;
 		for(int i = 0; i < ids.length; i++){
 			if(ids[i] == null || ids[i].trim().isEmpty()) continue;
 			Student data = this.studentDao.load(Student.class, ids[i]);
 			if(data != null){
 				this.studentDao.delete(data);
 			}
-		}
+		}*/
 	}
 
 	@Override

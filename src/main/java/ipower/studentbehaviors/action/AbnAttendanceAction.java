@@ -19,6 +19,11 @@ public class AbnAttendanceAction extends BaseDataAction<StudentAbnAttendanceInfo
 	}
 
 	@Override
+	public void update() throws IOException{
+		throw new IOException("该方法未实现，请使用学生考勤Action");
+	}
+	
+	@Override
 	protected String deletePrimaryString() {
 		return this.getModel().getId();
 	}
