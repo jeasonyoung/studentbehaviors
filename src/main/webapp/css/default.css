@@ -94,18 +94,3 @@ button::-moz-focus-inner,input[type="reset"]::-moz-focus-inner,input[type="butto
 }
 
 /*reset部分结束*/
-/*编辑页面样式*/ 
-form.edit dd{
-	float:left;
-	width:98%; 
-	margin-top:5px;
-	margin-left:5px;
-}
-form.edit dd label{
-	float:left;
-	display:block;
-	margin-top:2px;
-	margin-right:2px;
-	width:64px;
-	text-align:right;
-}

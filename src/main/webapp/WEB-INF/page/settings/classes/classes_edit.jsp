@@ -16,36 +16,36 @@ $(function(){
 });
 //-->
 </script>
-<form id="settings_classesedit_form" class="edit" method="POST">
-	<dd style="margin-top:2px;">
+<form id="settings_classesedit_form" method="POST" style="padding:7px;">
+	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<label style="width:88px;">班级名称：</label>
-			<input type="hidden" name="id"/>
+			<span>班级名称：</span>
 			<input type="text" name="name" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
+			<input type="hidden" name="id"/>
 		</div>
-		<div style="float:left;margin-left:15px;">
-			<label style="width:88px;">班级代码：</label>
-			<input type="text" name="code" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
+		<div style="float:left;margin-left:35px;">
+			<span>班级代码：</span>
+			<input type="text" name="code" class="easyui-validatebox" data-options="required:true" style="width:146px;"/>
 		</div>
-	</dd>
-	<dd style="margin-top:2px;">
+	</div>
+	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<label style="width:88px;">年级：</label>
+			<span>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</span>
 			<input type="text" name="grade" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 		</div>
-		<div style="float:left;margin-left:15px;">
-			<label style="width:88px;">培养层次：</label>
+		<div style="float:left;margin-left:35px;">
+			<span>培养层次：</span>
 			<input type="text" name="level" style="width:128px;"/>
 		</div>
-	</dd>
-	<dd style="margin-top:2px;">
+	</div>
+	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<label style="width:88px;">入学年度：</label>
+			<span>入学年度：</span>
 			<input type="text" name="joinYear" style="width:128px;"/>
 		</div>
-		<div style="float:left;margin-left:15px;">
-			<label style="width:88px;">状态：</label>
+		<div style="float:left;margin-left:35px;">
+			<span>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</span>
 			<input type="text" name="status" style="width:128px;"/>
 		</div>
-	</dd>
+	</div>
 </form>

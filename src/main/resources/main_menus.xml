@@ -14,8 +14,10 @@
 		<module id="AAA00000000000000000000000000202" name="晨/午检登记" uri="/headmaster/attendance.action" order="2"/>
 		<module id="AAA00000000000000000000000000302" name="查看考勤异常" uri="/headmaster/abnattendance.action" order="3"/>
 	</module>
-	<module id="AAA00000000000000000000000000003" name="报表" uri="" order="3">
-		<module id="AAA00000000000000000000000000103" name="出勤率" uri="" order="1"/>
+	<module id="AAA00000000000000000000000000003" name="统计" uri="" order="3">
+		<module id="AAA00000000000000000000000000103" name="班级出勤率" uri="" order="1"/>
+		<module id="AAA00000000000000000000000000203" name="学生出勤率" uri="" order="2"/>
+		<module id="AAA00000000000000000000000000303" name="缺勤情况统计" uri="" order="3"/>
 	</module>
   </system>
 </ipower>

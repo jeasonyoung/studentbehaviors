@@ -11,13 +11,13 @@ $(function(){
 });
 //-->
 </script>
-<form id="settings_usersedit_form" class="edit" method="POST">
-	<dd style="marign-top:2px;">
-		<label style="width:88px;">教师用户：</label>
+<form id="settings_usersedit_form" method="POST" style="padding:7px;">
+	<div style="float:left;margin-top:2px;width:250px;">
+		<span>教师用户：</span>
 		<input type="text" name="teacherId" style="width:168px;"/>
-	</dd>
-	<dd style="marign-top:2px;">
-		<label style="width:88px;">用户角色：</label>
+	</div>
+	<div style="float:left;margin-top:2px;width:250px;">
+		<span>用户角色：</span>
 		<input type="text" name="role" style="width:80px;"/>
-	</dd>
+	</div>
 </form>

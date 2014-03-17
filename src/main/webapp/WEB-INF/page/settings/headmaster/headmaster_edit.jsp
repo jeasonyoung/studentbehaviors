@@ -29,17 +29,17 @@ $(function(){
 });
 //-->
 </script>
-<form id="settings_headmasteredit_form" class="edit" method="POST">
-	<dd style="marign-top:2px;">
-		<label style="width:88px;">所属班级：</label>
+<form id="settings_headmasteredit_form" method="POST" style="padding:7px;">
+	<div style="float:left;margin-top:2px;width:250px;">
+		<span>所&nbsp;属&nbsp;&nbsp;班&nbsp;级：</span>
 		<input type="text" name="classId" style="width:168px;"/>
-	</dd>
-	<dd style="marign-top:2px;">
-		<label style="width:88px;">班主任老师：</label>
+	</div>
+	<div style="float:left;margin-top:2px;width:250px;">
+		<span>班主任老师：</span>
 		<input type="text" name="teacherId" style="width:168px;"/>
-	</dd>
-	<dd style="marign-top:2px;">
-		<label style="width:88px;">班主任类型：</label>
+	</div>
+	<div style="float:left;margin-top:2px;width:250px;">
+		<span>班主任类型：</span>
 		<input type="text" name="type" style="width:80px;"/>
-	</dd>
+	</div>
 </form>

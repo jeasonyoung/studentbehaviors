@@ -21,40 +21,40 @@ $(function(){
 });
 //-->
 </script>
-<form id="settings_studentsedit_form" class="edit" method="POST">
-	<dd style="marign-top:2px;">
-		<label style="width:88px;">所属班级：</label>
+<form id="settings_studentsedit_form" method="POST" style="padding:7px;">
+	<div style="float:left;margin-top:2px;width:450px;">
+		<span>所属班级：</span>
 		<input type="text" name="classId" class="easyui-validatebox" data-options="required:true" style="width:368px;"/>
-	</dd>
-	<dd style="marign-top:2px;">
+	</div>
+	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<label style="width:88px;">学生代码：</label>
-			<input type="hidden" name="id"/>
+			<span>学生代码：</span>
 			<input type="text" name="code" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
+			<input type="hidden" name="id"/>
 		</div>
-		<div style="float:left;margin-left:15px;">
-			<label style="width:88px;">学生姓名：</label>
+		<div style="float:left;margin-left:35px;">
+			<span>学生姓名：</span>
 			<input type="text" name="name" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 		</div>
-	</dd>
-	<dd style="marign-top:2px;">
+	</div>
+	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<label style="width:88px;">性别：</label>
+			<span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
 			<input type="text" name="gender" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 		</div>
-		<div style="float:left;margin-left:15px;">
-			<label style="width:88px;">身份证号：</label>
+		<div style="float:left;margin-left:35px;">
+			<span>身份证号：</span>
 			<input type="text" name="idCard" style="width:128px;"/>
 		</div>
-	</dd>
-	<dd style="marign-top:2px;">
+	</div>
+	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<label style="width:88px;">入学年度：</label>
+			<span>入学年度：</span>
 			<input type="text" name="joinYear" style="width:128px;"/>
 		</div>
-		<div style="float:left;margin-left:15px;">
-			<label style="width:88px;">状态：</label>
+		<div style="float:left;margin-left:35px;">
+			<span>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</span>
 			<input type="text" name="status" style="width:128px;"/>
 		</div>
-	</dd>
+	</div>
 </form>

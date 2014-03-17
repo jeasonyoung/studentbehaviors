@@ -52,7 +52,7 @@ $(function(){
 		var d = $("<div/>").dialog({
 			title:title,
 			width:300,
-			height:170,
+			height:200,
 			href:"${pageContext.request.contextPath}/settings/headmaster!edit.action",
 			modal:true,
 			buttons:[{

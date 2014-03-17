@@ -72,6 +72,23 @@ $(function(){
 			field:"remarks",
 			width:128,
 			sortable:true
+		},{
+			title:"登记者",
+			field:"createUserName",
+			width:20,
+			sortable:true
+		},{
+			title:"登记时间",
+			field:"createTime",
+			width:20,
+			align:"center",
+			formatter:function(value,row,index){
+				if(value.length >= 10){
+					return value.substring(0,10);
+				}
+				return value;
+			},
+			sortable:true
 		}]],
 		toolbar:"#headmaster_attendancelist_dg_toolbar"
 	});

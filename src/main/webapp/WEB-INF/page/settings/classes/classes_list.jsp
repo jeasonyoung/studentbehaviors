@@ -69,7 +69,7 @@ $(function(){
 		var d = $("<div/>").dialog({
 			title:title,
 			width:520,
-			height:170,
+			height:200,
 			href:"${pageContext.request.contextPath}/settings/classes!edit.action",
 			modal:true,
 			buttons:[{
