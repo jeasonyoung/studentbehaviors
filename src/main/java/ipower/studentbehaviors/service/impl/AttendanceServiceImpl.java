@@ -118,7 +118,6 @@ public class AttendanceServiceImpl implements IAttendanceService {
 			info.setCreateTime(new Date());
 			data = new StudentAbnAttendance();
 			BeanUtils.copyProperties(info, data);
-			data.setCreateTime(new Date());
 			if(info.getStudentId() != null && !info.getStudentId().trim().isEmpty()){
 				Student student = this.studentDao.load(Student.class, info.getStudentId());
 				if(student != null){
@@ -130,6 +129,11 @@ public class AttendanceServiceImpl implements IAttendanceService {
 		if(info.getStatus() > 0){
 			data.setStatus(info.getStatus());
 			data.setRemarks(info.getRemarks());
+			if(info.getCreateUserId() != null && !info.getCreateUserId().trim().isEmpty()){
+				data.setCreateUserId(info.getCreateUserId());
+				data.setCreateUserName(info.getCreateUserName());
+			}
+			data.setCreateTime(new Date());
 			if(isAdded)this.studentAbnAttendanceDao.save(data);
 			return info;
 		}
