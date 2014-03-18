@@ -12,11 +12,16 @@ import java.util.UUID;
 import org.springframework.beans.BeanUtils;
 
 import ipower.model.DataGrid;
+import ipower.studentbehaviors.dao.IClassDao;
 import ipower.studentbehaviors.dao.IStudentAbnAttendanceDao;
 import ipower.studentbehaviors.dao.IStudentDao;
+import ipower.studentbehaviors.domain.Class;
 import ipower.studentbehaviors.domain.Student;
 import ipower.studentbehaviors.domain.StudentAbnAttendance;
+import ipower.studentbehaviors.modal.AbnAttendanceStatistics;
+import ipower.studentbehaviors.modal.AbnAttendanceTotal;
 import ipower.studentbehaviors.modal.AttendanceInfo;
+import ipower.studentbehaviors.modal.ClassAttendanceReport;
 import ipower.studentbehaviors.service.IAttendanceService;
 /**
  * 学生考勤服务实现类。
@@ -26,6 +31,7 @@ import ipower.studentbehaviors.service.IAttendanceService;
 public class AttendanceServiceImpl implements IAttendanceService {
 	private IStudentAbnAttendanceDao studentAbnAttendanceDao;
 	private IStudentDao studentDao;
+	private IClassDao classDao;
 	
 	@Override
 	public void setStudentAbnAttendanceDao(IStudentAbnAttendanceDao studentAbnAttendanceDao) {
@@ -35,6 +41,11 @@ public class AttendanceServiceImpl implements IAttendanceService {
 	@Override
 	public void setStudentDao(IStudentDao studentDao) {
 		this.studentDao = studentDao;
+	}
+
+	@Override
+	public void setClassDao(IClassDao classDao) {
+		this.classDao = classDao;
 	}
 
 	@Override
@@ -158,5 +169,61 @@ public class AttendanceServiceImpl implements IAttendanceService {
 			if(data != null)
 				this.studentAbnAttendanceDao.delete(data);
 		}
+	}
+	
+	private synchronized AbnAttendanceStatistics createAbnAttendanceStatistics(List<StudentAbnAttendance> list){
+		AbnAttendanceStatistics statistics = new AbnAttendanceStatistics();
+		if(list == null || list.size() == 0) return statistics;
+		statistics.setTotal((long)list.size());
+		Map<Integer,AbnAttendanceTotal> cache = new HashMap<>();
+		for(int i = 0; i < list.size(); i++){
+			StudentAbnAttendance data = list.get(i);
+			if(data == null || data.getStatus() == null)continue;
+			AbnAttendanceTotal total = cache.get(data.getStatus());
+			if(total == null){
+				total = new AbnAttendanceTotal();
+				total.setStatus(data.getStatus());
+				total.setCount(0);
+			}
+			total.setCount(total.getCount() + 1);
+			cache.put(data.getStatus(), total);
+		}
+		List<AbnAttendanceTotal> totals = new ArrayList<AbnAttendanceTotal>();
+		if(cache.size() > 0){
+			for(AbnAttendanceTotal t : cache.values()){
+				if(t == null)continue;
+				totals.add(t);
+			}
+		}
+		statistics.setAbns(totals);
+		return statistics;
+	}
+
+	@Override
+	public synchronized List<ClassAttendanceReport> classDailyReport(String grade, String date) {
+		List<ClassAttendanceReport> list = new ArrayList<ClassAttendanceReport>();
+		if(grade == null || grade.trim().isEmpty()) return list;
+		if(date == null || date.trim().isEmpty()) return list;
+		final String class_hql = "from Class c where c.status = 1 and c.grade = :grade order by c.joinYear desc",
+				     student_hql = "select count(*) from Student s where s.status = 1 and s.clazz.id = :classId",
+				     abn_hql = "from StudentAbnAttendance s where s.student.clazz.id=:classId and s.date=:date";
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("grade", grade);
+		List<Class> classes = this.classDao.find(class_hql, parameters, null, null);
+		if(classes == null || classes.size() == 0) return list;
+		for(int i = 0; i < classes.size(); i++){
+			Class clazz = classes.get(i);
+			if(clazz == null) continue;
+			ClassAttendanceReport report = new ClassAttendanceReport();
+			report.setClassId(clazz.getId());
+			report.setClassName(clazz.getName());
+			parameters = new HashMap<String, Object>();
+			parameters.put("classId", report.getClassId());
+		    report.setTotal(this.studentDao.count(student_hql, parameters).intValue());
+			parameters.put("date",date);
+			report.setStatistics(this.createAbnAttendanceStatistics(this.studentAbnAttendanceDao.find(abn_hql, parameters, null, null)));
+			list.add(report);
+		}
+		return list;
 	}
 }

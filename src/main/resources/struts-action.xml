@@ -70,6 +70,9 @@
 		<action name="abnattendance" class="AbnAttendanceAction">
 			<result name="list">/WEB-INF/page/headmaster/attendance/attendance_list.jsp</result>
 		</action>
+		<action name="report" class="AttendanceReportAction">
+			<result name="dailyReportList">/WEB-INF/page/reports/class_daily_List.jsp</result>
+		</action>
 		<!--用户登录 -->
 		<action name="login" class="LoginAction">
 			<result name="list">/WEB-INF/page/login/login_list.jsp</result>

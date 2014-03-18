@@ -1,8 +1,12 @@
 package ipower.studentbehaviors.service;
 
+import java.util.List;
+
+import ipower.studentbehaviors.dao.IClassDao;
 import ipower.studentbehaviors.dao.IStudentAbnAttendanceDao;
 import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.modal.AttendanceInfo;
+import ipower.studentbehaviors.modal.ClassAttendanceReport;
 /**
  * 学生考勤服务接口。
  * @author yangyong.
@@ -21,4 +25,20 @@ public interface IAttendanceService extends IDataService<AttendanceInfo> {
 	 * 	学生数据访问接口。
 	 * */
 	void setStudentDao(IStudentDao studentDao);
+	/**
+	 * 设置班级数据访问接口。
+	 * @param classDao
+	 * 	班级数据访问接口。
+	 * */
+	void setClassDao(IClassDao classDao);
+	/**
+	 * 班级考勤日报。
+	 * @param grade
+	 * 	年级。
+	 * @param date
+	 * 	日期。
+	 * @return
+	 * 	考勤日报
+	 * */
+	List<ClassAttendanceReport> classDailyReport(String grade,String date);
 }

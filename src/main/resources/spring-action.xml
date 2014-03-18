@@ -51,6 +51,10 @@
 	<bean name="AbnAttendanceAction" class="ipower.studentbehaviors.action.AbnAttendanceAction" scope="prototype">
 		<property name="service" ref="studentAbnAttendanceService"/>
 	</bean>
+	<!--考勤汇总报表 -->
+	<bean name="AttendanceReportAction" class="ipower.studentbehaviors.action.AttendanceReportAction">
+		<property name="service" ref="attendanceService"/>
+	</bean>
 	<!--用户登录 -->
 	<bean name="LoginAction" class="ipower.studentbehaviors.action.LoginAction" scope="prototype">
 		<property name="userAuthentication" ref="authentication"/>

@@ -1,6 +1,7 @@
 package ipower.studentbehaviors.modal;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 /**
  * 学生考勤异常统计。
@@ -16,6 +17,7 @@ public class AbnAttendanceStatistics implements Serializable {
 	 * */
 	public AbnAttendanceStatistics(){
 		this.total = (long)0;
+		this.abns = new ArrayList<AbnAttendanceTotal>();
 	}
 	/**
 	 * 获取学生考勤异常总数。
