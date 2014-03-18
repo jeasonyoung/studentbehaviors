@@ -23,37 +23,37 @@ $(function(){
 </script>
 <form id="settings_studentsedit_form" method="POST" style="padding:7px;">
 	<div style="float:left;margin-top:2px;width:450px;">
-		<span>所属班级：</span>
+		<span style="float:left;width:65px;text-align:right;padding-top:2px;">所属班级：</span>
 		<input type="text" name="classId" class="easyui-validatebox" data-options="required:true" style="width:368px;"/>
 	</div>
 	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<span>学生代码：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">学生代码：</span>
 			<input type="text" name="code" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 			<input type="hidden" name="id"/>
 		</div>
 		<div style="float:left;margin-left:35px;">
-			<span>学生姓名：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">学生姓名：</span>
 			<input type="text" name="name" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 		</div>
 	</div>
 	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">性别：</span>
 			<input type="text" name="gender" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 		</div>
 		<div style="float:left;margin-left:35px;">
-			<span>身份证号：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">身份证号：</span>
 			<input type="text" name="idCard" style="width:128px;"/>
 		</div>
 	</div>
 	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<span>入学年度：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">入学年度：</span>
 			<input type="text" name="joinYear" style="width:128px;"/>
 		</div>
 		<div style="float:left;margin-left:35px;">
-			<span>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">状态：</span>
 			<input type="text" name="status" style="width:128px;"/>
 		</div>
 	</div>

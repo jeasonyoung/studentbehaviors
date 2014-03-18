@@ -230,7 +230,7 @@ $(function(){
 			},
 			dataType:"json",
 			success:function(data){
-				console.info(data);
+				//console.info(data);
 				if(!data)return;
 				$("#headmaster_attendancerecord_dg_toolbar_classes_truth").html("实到：["+ (class_students_count - data.total) +"]人");
 				var html = "缺勤：["+ data.total +"]人";

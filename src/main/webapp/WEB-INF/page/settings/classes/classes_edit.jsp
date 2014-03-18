@@ -16,35 +16,35 @@ $(function(){
 });
 //-->
 </script>
-<form id="settings_classesedit_form" method="POST" style="padding:7px;">
+<form id="settings_classesedit_form" method="POST" style="padding:10px;">
 	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<span>班级名称：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">班级名称：</span>
 			<input type="text" name="name" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 			<input type="hidden" name="id"/>
 		</div>
 		<div style="float:left;margin-left:35px;">
-			<span>班级代码：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">班级代码：</span>
 			<input type="text" name="code" class="easyui-validatebox" data-options="required:true" style="width:146px;"/>
 		</div>
 	</div>
 	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<span>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">年级：</span>
 			<input type="text" name="grade" class="easyui-validatebox" data-options="required:true" style="width:128px;"/>
 		</div>
 		<div style="float:left;margin-left:35px;">
-			<span>培养层次：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">培养层次：</span>
 			<input type="text" name="level" style="width:128px;"/>
 		</div>
 	</div>
 	<div style="float:left;margin-top:2px;width:450px;">
 		<div style="float:left;">
-			<span>入学年度：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">入学年度：</span>
 			<input type="text" name="joinYear" style="width:128px;"/>
 		</div>
 		<div style="float:left;margin-left:35px;">
-			<span>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</span>
+			<span style="float:left;width:65px;text-align:right;padding-top:2px;">状态：</span>
 			<input type="text" name="status" style="width:128px;"/>
 		</div>
 	</div>
