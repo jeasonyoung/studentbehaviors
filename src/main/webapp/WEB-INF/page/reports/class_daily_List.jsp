@@ -2,9 +2,29 @@
 <script type="text/javascript">
 <!--
 $(function(){
+	//grade
+	var dd_grade = $("#reports_class_daily_list_dg_toolbar input[name='grade']").combobox({
+		required:true,
+		valueField:"value",
+		textField:"value",
+		data:[{value:"一年级",selected:true},{value:"二年级"},{value:"三年级"},{value:"四年级"},{value:"五年级"},{value:"六年级"}]
+	});
+	//date
+	var dd_date = $("#reports_class_daily_list_dg_toolbar input[name='date']").datebox({
+		required:true
+	});
+	dd_date.datebox("setValue","<%out.print(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));%>");
+	//query
+	var query = function(){
+		return {
+			grade:dd_grade.combobox("getValue"),
+			date:dd_date.datebox("getValue")	
+		}
+	};
 	//list
 	var dg = $("#reports_class_daily_list_dg").datagrid({
 		url:"${pageContext.request.contextPath}/reports/report!classDailyReport.action",
+		queryParams:query(),
 		fit:true,
 		fitColumns:true,
 		rownumbers:true,
@@ -14,58 +34,125 @@ $(function(){
 		pageList:[20,30,40],
 		border:true,
 		striped:true,
-		idField:"id",
-		sortName:"createTime",
+		idField:"classId",
+		sortName:"className",
 		sortOrder:"desc",
 		columns:[[{
-			title:"所属班级",
+			title:"班级",
 			field:"className",
-			width:20,
-			sortable:true
+			width:20
 		},{
-			title:"学生姓名",
-			field:"studentName",
-			width:20,
-			sortable:true
+			title:"出勤率",
+			field:"attendance",
+			width:10,
+			align:"right"
 		},{
-			title:"异常日期",
-			field:"date",
-			width:20,
-			align:"center",
-			sortable:true
+			title:"应到人数",
+			field:"total",
+			width:10,
+			align:"right"
 		},{
-			title:"考勤原因",
-			field:"status",
-			width:15,
-			align:"center",
-			formatter:function(value,row,index){
-				if(value == 0) return "";
-				if(value == 1) return "迟到";
-				if(value == 2) return "病假";
-				if(value == 3) return "事假";
-				if(value == 4) return "其他";
+			title:"缺勤人数",
+			field:"statistics",
+			width:10,
+			align:"right",
+			formatter: function(value,row,index){
+				if(row.statistics)
+					return row.statistics.total;
 				return value;
-			},
-			styler:function(value,row,index){
-				if(value == 0) return "background-color:#e7f7f7;";
-				if(value == 1) return "background-color:#31b573;color:#7e6338;";
-				if(value == 2) return "background-color:#52e2cc;color:#7e6338;";
-				if(value == 3) return "background-color:#edf8a1;color:#7e6338;";
-				if(value == 4) return "background-color:#f0ac41;color:#7e6338;";
-				return "background-color:#ffee00;color:red;";
-			},
-			sortable:true
+			}
+		},{
+			title:"迟到",
+			field:"statistics.abns",
+			width:10,
+			align:"right",
+			formatter: function(value,row,index){
+				var abns = row.statistics.abns;
+				if($.isArray(abns) && abns.length > 0){
+					var result = null;
+					$.each(abns,function(i,n){
+						if(n.status == 1){
+							result = n.count;
+							return result;
+						}
+					});
+					if(result)return result;
+				}
+				return 0;
+			}
+		},{
+			title:"病假",
+			field:"statistics.abns.status",
+			width:10,
+			align:"right",
+			formatter: function(value,row,index){
+				var abns = row.statistics.abns;
+				if($.isArray(abns) && abns.length > 0){
+					var result = null;
+					$.each(abns,function(i,n){
+						if(n.status == 2){
+							result = n.count;
+							return result;
+						}
+					});
+					if(result)return result;
+				}
+				return 0;
+			}
+		},{
+			title:"事假",
+			field:"statistics.abns.count",
+			width:10,
+			align:"right",
+			formatter: function(value,row,index){
+				var abns = row.statistics.abns;
+				if($.isArray(abns) && abns.length > 0){
+					var result = null;
+					$.each(abns,function(i,n){
+						if(n.status == 3){
+							result = n.count;
+							return result;
+						}
+					});
+					if(result)return result;
+				}
+				return 0;
+			}
+		},{
+			title:"其他",
+			field:"classId",
+			width:10,
+			align:"right",
+			formatter: function(value,row,index){
+				var abns = row.statistics.abns;
+				if($.isArray(abns) && abns.length > 0){
+					var result = null;
+					$.each(abns,function(i,n){
+						if(n.status == 4){
+							result = n.count;
+							return result;
+						}
+					});
+					if(result)return result;
+				}
+				return 0;
+			}
 		}]],
 		toolbar:"#reports_class_daily_list_dg_toolbar"
 	});
+	//search
+	reports_class_daily_list_dg_search = function(){
+		var q = query();
+		dg.datagrid("load",q);
+	};
 });
 //-->
 </script>
 <table id="reports_class_daily_list_dg"></table>
 <div id="reports_class_daily_list_dg_toolbar" style="height:auto;">
 	<span>年级：</span>
-	<input name="grade" type="text" style="width:168px;"/>
+	<input name="grade" type="text" style="width:80px;"/>
 	<span>日期：</span>
-	<input name="date" type="text" class="easyui-datebox" style="width:128px;"/>
-	<a href="#" class="easyui-linkbutton" onclick="alert('x')" data-options="iconCls:'icon-search',plain:true">查询</a>
+	<input name="date" type="text" style="width:90px;"/>
+	<a href="#" class="easyui-linkbutton" onclick="reports_class_daily_list_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a>
 </div>

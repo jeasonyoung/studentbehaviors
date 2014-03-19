@@ -8,7 +8,7 @@ import java.io.Serializable;
  * */
 public class ClassAttendanceReport implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String classId,className;
+	private String classId,className,attendance;
 	private Integer total;
 	private AbnAttendanceStatistics statistics;
 	/**
@@ -76,19 +76,35 @@ public class ClassAttendanceReport implements Serializable {
 	 * */
 	public void setStatistics(AbnAttendanceStatistics statistics) {
 		this.statistics = statistics;
+		this.setAttendance(this.createAttendance(statistics));
+	}
+	/**
+	 * 获取出勤率。
+	 * @return 出勤率。
+	 * */
+	public String getAttendance() {
+		return attendance;
+	}
+	/**
+	 * 设置出勤率。
+	 * @param attendance
+	 * 	出勤率。
+	 * */
+	public void setAttendance(String attendance) {
+		this.attendance = attendance;
 	}
 	/**
 	 * 获取出勤率。
 	 * @return 
 	 * 出勤率。
 	 * */
-	public String Attendance(){
+	private String createAttendance(AbnAttendanceStatistics statistics){
 		if(this.total == null || this.total == 0) return "";
-		if(this.getStatistics() == null || this.getStatistics().getTotal() == null || this.getStatistics().getTotal() == 0){
+		if(statistics == null || statistics.getTotal() == null || statistics.getTotal() == 0){
 			return "100%";
 		}
-		int abn = this.getStatistics().getTotal().intValue();
+		int abn = statistics.getTotal().intValue();
 		double result = ((this.total - abn)/(double)this.total) * 100;
-		return String.format("%1$,.2", result) + "%";
+		return String.format("%.2f%%", result);
 	}
 }

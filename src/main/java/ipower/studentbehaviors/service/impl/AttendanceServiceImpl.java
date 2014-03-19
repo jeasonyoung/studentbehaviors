@@ -204,7 +204,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
 		List<ClassAttendanceReport> list = new ArrayList<ClassAttendanceReport>();
 		if(grade == null || grade.trim().isEmpty()) return list;
 		if(date == null || date.trim().isEmpty()) return list;
-		final String class_hql = "from Class c where c.status = 1 and c.grade = :grade order by c.joinYear desc",
+		final String class_hql = "from Class c where c.status = 1 and c.grade = :grade order by c.joinYear desc,c.name",
 				     student_hql = "select count(*) from Student s where s.status = 1 and s.clazz.id = :classId",
 				     abn_hql = "from StudentAbnAttendance s where s.student.clazz.id=:classId and s.date=:date";
 		Map<String, Object> parameters = new HashMap<String, Object>();
