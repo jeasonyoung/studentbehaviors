@@ -92,14 +92,15 @@ public class AttendanceReportAction extends BaseAction {
 	 * @throws IOException 
 	 * */
 	public void week() throws ParseException, IOException{
-		if(this.date != null && this.date.trim().isEmpty()){
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			 Date dt_date = format.parse(this.date),
-				  dt_start = DateUtil.firstDayOfWeek(dt_date),
-				  dt_end = DateUtil.lastDayOfWeek(dt_date);
-			 String[] result = { format.format(dt_start),format.format(dt_end)};
-			 this.writeJson(result);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		if(this.date == null || this.date.trim().isEmpty()){
+			this.date = format.format(new Date());
 		}
+		Date dt_date = format.parse(this.date),
+			  dt_start = DateUtil.firstDayOfWeek(dt_date),
+			  dt_end = DateUtil.lastDayOfWeek(dt_date);
+		String[] result = { format.format(dt_start),format.format(dt_end)};
+		this.writeJson(result);
 	}
 	/**
 	 * 班级周报。
