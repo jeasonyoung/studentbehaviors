@@ -41,4 +41,16 @@ public interface IAttendanceService extends IDataService<AttendanceInfo> {
 	 * 	考勤日报
 	 * */
 	List<ClassAttendanceReport> classDailyReport(String grade,String date);
+	/**
+	 * 班级考勤周报。
+	 * @param grade
+	 * 	年级。
+	 * @param start
+	 * 	开始时间。
+	 * @param end
+	 *  结束时间。
+	 * @return
+	 * 	考勤周报。
+	 * */
+	List<ClassAttendanceReport> classWeekReport(String grade,String start,String end);
 }

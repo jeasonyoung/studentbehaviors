@@ -198,18 +198,26 @@ public class AttendanceServiceImpl implements IAttendanceService {
 		statistics.setAbns(totals);
 		return statistics;
 	}
-
+	private List<Class> loadClasses(String grade){
+		final String class_hql = "from Class c where c.status = 1 and c.grade = :grade order by c.joinYear desc,c.name";
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("grade", grade);
+		return this.classDao.find(class_hql, parameters, null, null);
+	}
+	private Integer loadClassStudentCount(String classId){
+		final String  student_hql = "select count(*) from Student s where s.status = 1 and s.clazz.id = :classId";
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("classId", classId);
+		return this.studentDao.count(student_hql, parameters).intValue();
+	}
+	
 	@Override
 	public synchronized List<ClassAttendanceReport> classDailyReport(String grade, String date) {
 		List<ClassAttendanceReport> list = new ArrayList<ClassAttendanceReport>();
 		if(grade == null || grade.trim().isEmpty()) return list;
 		if(date == null || date.trim().isEmpty()) return list;
-		final String class_hql = "from Class c where c.status = 1 and c.grade = :grade order by c.joinYear desc,c.name",
-				     student_hql = "select count(*) from Student s where s.status = 1 and s.clazz.id = :classId",
-				     abn_hql = "from StudentAbnAttendance s where s.student.clazz.id=:classId and s.date=:date";
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("grade", grade);
-		List<Class> classes = this.classDao.find(class_hql, parameters, null, null);
+		final String abn_hql = "from StudentAbnAttendance s where s.student.clazz.id=:classId and s.date=:date";
+		List<Class> classes = this.loadClasses(grade);
 		if(classes == null || classes.size() == 0) return list;
 		for(int i = 0; i < classes.size(); i++){
 			Class clazz = classes.get(i);
@@ -217,10 +225,37 @@ public class AttendanceServiceImpl implements IAttendanceService {
 			ClassAttendanceReport report = new ClassAttendanceReport();
 			report.setClassId(clazz.getId());
 			report.setClassName(clazz.getName());
-			parameters = new HashMap<String, Object>();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("classId", report.getClassId());
-		    report.setTotal(this.studentDao.count(student_hql, parameters).intValue());
 			parameters.put("date",date);
+		    report.setTotal(this.loadClassStudentCount(clazz.getId()));
+			report.setStatistics(this.createAbnAttendanceStatistics(this.studentAbnAttendanceDao.find(abn_hql, parameters, null, null)));
+			list.add(report);
+		}
+		return list;
+	}
+
+	@Override
+	public List<ClassAttendanceReport> classWeekReport(String grade,String start, String end) {
+		List<ClassAttendanceReport> list = new ArrayList<ClassAttendanceReport>();
+		if(grade == null || grade.trim().isEmpty()) return list;
+		if(start == null || start.trim().isEmpty()) return list;
+		if(end == null || end.trim().isEmpty()) return list;
+		
+		final String abn_hql = "from StudentAbnAttendance s where s.student.clazz.id=:classId and (s.date between :start and :end)";
+		List<Class> classes = this.loadClasses(grade);
+		if(classes == null || classes.size() == 0) return list;
+		for(int i = 0; i < classes.size(); i++){
+			Class clazz = classes.get(i);
+			if(clazz == null) continue;
+			ClassAttendanceReport report = new ClassAttendanceReport();
+			report.setClassId(clazz.getId());
+			report.setClassName(clazz.getName());
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("classId", report.getClassId());
+			parameters.put("start",start);
+			parameters.put("end", end);
+		    report.setTotal(this.loadClassStudentCount(clazz.getId()));
 			report.setStatistics(this.createAbnAttendanceStatistics(this.studentAbnAttendanceDao.find(abn_hql, parameters, null, null)));
 			list.add(report);
 		}
