@@ -92,8 +92,16 @@ public class ClassServiceImpl extends DataServiceImpl<ipower.studentbehaviors.do
 	}
 
 	@Override
-	public List<ClassInfo> all() {
-		List<Class> list = this.classDao.find("from Class c where c.status=1 order by c.joinYear desc, c.name", null, null, null);
+	public synchronized List<ClassInfo> all(String grade) {
+		Map<String, Object> parameters = new HashMap<>();
+		 StringBuilder hqlBuilder = new StringBuilder();
+		 hqlBuilder.append("from Class c where c.status = 1  ");
+		 if(grade != null && !grade.trim().isEmpty()){
+			 hqlBuilder.append(" and c.grade = :grade ");
+			 parameters.put("grade", grade);
+		 }
+		 hqlBuilder.append(" order by c.joinYear desc, c.name ");
+		List<Class> list = this.classDao.find(hqlBuilder.toString(), parameters, null, null);
 		return this.changeModel(list);
 	}
 }

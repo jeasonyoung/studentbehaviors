@@ -28,7 +28,7 @@ public class ClassAction extends BaseDataAction<ClassInfo> {
 	 * */
 	public void all() throws IOException{
 		if(this.service instanceof IClassService){
-			this.writeJson(((IClassService)this.service).all());
+			this.writeJson(((IClassService)this.service).all(this.getModel().getGrade()));
 		}
 	}
 }

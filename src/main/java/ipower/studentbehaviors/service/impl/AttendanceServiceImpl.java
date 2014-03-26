@@ -18,6 +18,7 @@ import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.domain.Class;
 import ipower.studentbehaviors.domain.Student;
 import ipower.studentbehaviors.domain.StudentAbnAttendance;
+import ipower.studentbehaviors.modal.AbnAttendanceInfo;
 import ipower.studentbehaviors.modal.AbnAttendanceStatistics;
 import ipower.studentbehaviors.modal.AbnAttendanceTotal;
 import ipower.studentbehaviors.modal.AttendanceInfo;
@@ -260,5 +261,67 @@ public class AttendanceServiceImpl implements IAttendanceService {
 			list.add(report);
 		}
 		return list;
+	}
+	@Override
+	public synchronized DataGrid<AbnAttendanceInfo> students(AbnAttendanceInfo info) {
+		String hql = "from StudentAbnAttendance s where 1=1 ";
+		//where
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		if(info.getGrade() != null && !info.getGrade().trim().isEmpty()){
+			hql += " and (s.student.clazz.grade = :grade) ";
+			parameters.put("grade", info.getGrade());
+		}
+		if(info.getClassId() != null && !info.getClassId().trim().isEmpty()){
+			hql += " and (s.student.clazz.id = :classId) ";
+			parameters.put("classId", info.getClassId());
+		}
+		if(info.getStudentName() != null && !info.getStudentName().isEmpty()){
+			hql += " and (s.student.code like :studentName or s.student.name like :studentName) ";
+			parameters.put("studentName", "%"  + info.getStudentName() + "%");
+		}
+		if(info.getDate() != null && !info.getDate().trim().isEmpty()){
+			hql += " and (s.date = :date) ";
+			parameters.put("date", info.getDate());
+		}
+		//order
+		if(info.getSort() != null && info.getSort().equalsIgnoreCase("grade")){
+			info.setSort("student.clazz.grade");
+		}
+		if(info.getSort() != null && info.getSort().equalsIgnoreCase("studentName")){
+			info.setSort("student.name");
+		}
+		if(info.getSort() != null && info.getSort().equalsIgnoreCase("className")){
+			info.setSort("student.clazz.name");
+		}
+		if(info.getSort() != null && !info.getSort().trim().isEmpty()){
+			hql += " order by s." + info.getSort() + " " + info.getOrder();
+		}
+		List<AbnAttendanceInfo> rows = new ArrayList<>();
+		List<StudentAbnAttendance> list =  this.studentAbnAttendanceDao.find(hql, parameters, info.getPage(), info.getRows());
+		if(list != null && list.size() > 0){
+			 for(int i = 0; i < list.size(); i++){
+				 StudentAbnAttendance data = list.get(i);
+				 if(data == null) continue;
+				 AbnAttendanceInfo row = new AbnAttendanceInfo();
+				 row.setId(data.getId());
+				 if(data.getStudent() != null){
+					 row.setStudentName(data.getStudent().getName());
+					 if(data.getStudent().getClazz() != null){
+						 row.setClassName(data.getStudent().getClazz().getName());
+						 row.setGrade(data.getStudent().getClazz().getGrade());
+					 }
+				 }
+				 row.setCreateUserName(data.getCreateUserName());
+				 row.setDate(data.getDate());
+				 row.setRemarks(data.getRemarks());
+				 row.setSegment(data.getSegment());
+				 row.setStatus(data.getStatus());
+				 rows.add(row);
+			 }
+		}
+		DataGrid<AbnAttendanceInfo> grid = new DataGrid<>();
+		grid.setTotal((long)rows.size());
+		grid.setRows(rows);
+		return grid;
 	}
 }

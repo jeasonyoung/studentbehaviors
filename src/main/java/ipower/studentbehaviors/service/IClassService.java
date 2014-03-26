@@ -19,8 +19,10 @@ public interface IClassService extends IDataService<ClassInfo> {
 	void setClassDao(IClassDao classDao);
 	/**
 	 * 获取全部班级信息。
+	 * @param grade
+	 * 	年级
 	 * @return
 	 * 	全部班级信息。
 	 * */
-	List<ClassInfo> all();
+	List<ClassInfo> all(String grade);
 }

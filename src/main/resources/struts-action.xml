@@ -75,6 +75,10 @@
 			<result name="dailyReportList">/WEB-INF/page/reports/class_daily_List.jsp</result>
 			<result name="weekReportList">/WEB-INF/page/reports/class_week_List.jsp</result>
 		</action>
+		<!--学生报表 -->
+		<action name="stureport" class="StudentReportAction">
+			<result name="list">/WEB-INF/page/reports/student_abn_List.jsp</result>
+		</action>
 		<!--用户登录 -->
 		<action name="login" class="LoginAction">
 			<result name="list">/WEB-INF/page/login/login_list.jsp</result>

@@ -17,7 +17,7 @@
 	<module id="AAA00000000000000000000000000003" name="统计" uri="" order="3">
 		<module id="AAA00000000000000000000000000103" name="班级日出勤率" uri="/reports/report!dailyReportList.action" order="1"/>
 		<module id="AAA00000000000000000000000000203" name="班级周出勤率" uri="/reports/report!weekReportList.action" order="2"/>
-		<module id="AAA00000000000000000000000000303" name="学生出勤率" uri="" order="3"/>
+		<module id="AAA00000000000000000000000000303" name="学生异常查询" uri="/reports/stureport.action" order="3"/>
 		<module id="AAA00000000000000000000000000403" name="缺勤情况统计" uri="" order="4"/>
 	</module>
   </system>

@@ -2,9 +2,11 @@ package ipower.studentbehaviors.service;
 
 import java.util.List;
 
+import ipower.model.DataGrid;
 import ipower.studentbehaviors.dao.IClassDao;
 import ipower.studentbehaviors.dao.IStudentAbnAttendanceDao;
 import ipower.studentbehaviors.dao.IStudentDao;
+import ipower.studentbehaviors.modal.AbnAttendanceInfo;
 import ipower.studentbehaviors.modal.AttendanceInfo;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
 /**
@@ -53,4 +55,12 @@ public interface IAttendanceService extends IDataService<AttendanceInfo> {
 	 * 	考勤周报。
 	 * */
 	List<ClassAttendanceReport> classWeekReport(String grade,String start,String end);
+	/**
+	 * 学生异常考勤明细。
+	 * @param info
+	 *  查询条件。
+	 * @return
+	 *  查询结果。
+	 * */
+	DataGrid<AbnAttendanceInfo> students(AbnAttendanceInfo info);
 }
