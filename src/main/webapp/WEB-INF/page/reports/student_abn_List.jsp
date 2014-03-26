@@ -10,7 +10,7 @@ $(function(){
 		onChange:function(newValue,oldValue){
 			if(newValue == "") return;
 			if(newValue != oldValue && dd_class) {
-				dd_class.combobox("reload","${pageContext.request.contextPath}/settings/classes!all.action?grade="+newValue);
+				dd_class.combobox("reload","${pageContext.request.contextPath}/settings/classes!all.action");
 			}
 		}
 	});
@@ -18,7 +18,10 @@ $(function(){
 	var dd_class = $("#reports_class_week_list_dg_toolbar input[name=classId]").combobox({
 		url:"${pageContext.request.contextPath}/settings/classes!all.action",
 		valueField:"id",
-		textField:"name"
+		textField:"name",
+		onBeforeLoad:function(param){
+			param.grade = dd_grade.combobox("getValue");
+		}
 	});
 	//list
 	var dg = $("#reports_student_abn_list_dg").datagrid({
