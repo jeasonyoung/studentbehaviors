@@ -193,11 +193,68 @@ $(function(){
 			record_date.datebox("setValue",data);
 		}
 	});
+	//register
+	var reg = $("#headmaster_attendancerecord_dg_register");
+	if(reg){
+		reg.hide();
+		reg.click(function(){
+			var q = query();
+			if(q == null || q.classId == "" || q.date == "" || q.segment == ""){
+				reg.hide();
+				return;
+			}
+			$.messager.confirm("确认","您是否确认设置全班全勤?",function(r){
+				if(!r)return;
+				$.ajax({
+					url:"${pageContext.request.contextPath}/headmaster/attendance!register.action",
+					type:"POST",
+					data:{
+						classId:q.classId,
+						date:q.date,
+						segment:q.segment
+					},
+					dataType:"json",
+					success:function(data){
+						if(data){
+							reg.hide();
+						}else{
+							reg.show();
+						}
+					}
+				});
+			});
+		});
+	}
+	//load_register
+	function load_register(q){
+		if(q == null || q.classId == "" || q.date == "" || q.segment == ""){
+			reg.hide();
+			return;
+		}
+		$.ajax({
+			url:"${pageContext.request.contextPath}/headmaster/attendance!loadregister.action",
+			type:"POST",
+			data:{
+				classId:q.classId,
+				date:q.date,
+				segment:q.segment
+			},
+			dataType:"json",
+			success:function(data){
+				if((typeof data.id) == "undefined"){
+					reg.show();
+				}else{
+					reg.hide();
+				}
+			}
+		});
+	};
 	//search
 	headmaster_attendancerecord_dg_search = function(){
 		var q = query();
 		dg.datagrid("load",q);
 		class_students_abn(q.classId,q.date,q.segment);
+		load_register(q);
 	};
 	//class_students
 	var class_students_count = 0;
@@ -278,6 +335,8 @@ $(function(){
 			<input name="segment" type="radio" value="2"/><span>午检</span>
 				 
 			<a href="#" class="easyui-linkbutton" style="margin-left:20px;" onclick="headmaster_attendancerecord_dg_search()" data-options="iconCls:'icon-search',plain:true">查询</a> 
+			<a href="#"  id="headmaster_attendancerecord_dg_register"  class="easyui-linkbutton" style="margin-left:20px;" data-options="iconCls:'icon-tip',plain:true">设置全班全勤</a> 
+			
 			<span style="margin-left:2px;border:solid 1px #ccc;display:block;padding:5px;">
 				<span id="headmaster_attendancerecord_dg_toolbar_classes"></span>
 				<span id="headmaster_attendancerecord_dg_toolbar_classes_truth"></span>

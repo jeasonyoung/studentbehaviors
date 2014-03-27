@@ -29,4 +29,8 @@
 	<bean id="studentAbnAttendanceDao" class="ipower.studentbehaviors.dao.impl.StudentAbnAttendanceDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+	<!--班级全勤登记数据访问 -->
+	<bean id="classAttendanceRegister" class="ipower.studentbehaviors.dao.impl.ClassAttendanceRegisterDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>

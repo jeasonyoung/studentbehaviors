@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<!--首页 -->
-	<bean name="IndexAction" class="ipower.studentbehaviors.action.IndexAction">
+	<bean name="IndexAction" class="ipower.studentbehaviors.action.IndexAction" scope="prototype">
 		<property name="menuService" ref="menuService"/>
 		<property name="systemId" value="${current_systemId}"/>
 	</bean>
@@ -52,11 +52,11 @@
 		<property name="service" ref="studentAbnAttendanceService"/>
 	</bean>
 	<!--考勤汇总报表 -->
-	<bean name="AttendanceReportAction" class="ipower.studentbehaviors.action.AttendanceReportAction">
+	<bean name="AttendanceReportAction" class="ipower.studentbehaviors.action.AttendanceReportAction" scope="prototype">
 		<property name="service" ref="attendanceService"/>
 	</bean>
 	<!--学生报表 -->
-	<bean name="StudentReportAction" class="ipower.studentbehaviors.action.StudentReportAction">
+	<bean name="StudentReportAction" class="ipower.studentbehaviors.action.StudentReportAction" scope="prototype">
 		<property name="service" ref="attendanceService"/>
 	</bean>
 	<!--用户登录 -->

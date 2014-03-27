@@ -110,4 +110,21 @@
 		<!--记录创建时间-->
 		<property name="createTime" type="date"/>
 	</class>
+	<!--班级全勤登记 -->
+	<class name="ClassAttendanceRegister"  table="tbl_base_attendanceregister">
+		<!-- 登记ID -->
+		<id name="id" type="string" length="64"/>
+		<!--考勤日期 -->
+		<property name="date" type="string"  length="10" not-null="true"/>
+		<!--考勤段 -->
+		<property name="segment" type="integer"  not-null="true"/>
+		<!--班级 -->
+		<many-to-one name="clazz" column="class_id" class="Class" fetch="join" cascade="save-update"/>
+		<!--记录创建用户ID -->
+		<property name="createUserId" type="string" length="64"/>
+		<!--记录创建用户姓名 -->
+		<property name="createUserName" type="string" length="32"/>
+		<!--记录创建时间-->
+		<property name="createTime" type="date"/>
+	</class>
 </hibernate-mapping>

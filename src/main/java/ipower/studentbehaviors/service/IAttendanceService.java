@@ -3,13 +3,16 @@ package ipower.studentbehaviors.service;
 import java.util.List;
 
 import ipower.model.DataGrid;
+import ipower.studentbehaviors.dao.IClassAttendanceRegisterDao;
 import ipower.studentbehaviors.dao.IClassDao;
 import ipower.studentbehaviors.dao.IStudentAbnAttendanceDao;
 import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.modal.AbnAttendanceInfo;
 import ipower.studentbehaviors.modal.AbnAttendanceStatusReport;
 import ipower.studentbehaviors.modal.AttendanceInfo;
+import ipower.studentbehaviors.modal.AttendanceRegisterInfo;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
+import ipower.studentbehaviors.modal.UserInfo;
 /**
  * 学生考勤服务接口。
  * @author yangyong.
@@ -34,6 +37,12 @@ public interface IAttendanceService extends IDataService<AttendanceInfo> {
 	 * 	班级数据访问接口。
 	 * */
 	void setClassDao(IClassDao classDao);
+	/**
+	 * 设置班级全勤登记数据访问接口。
+	 * @param classAttendanceRegisterDao
+	 * 班级全勤登记数据访问接口。
+	 * */
+	void setClassAttendanceRegisterDao(IClassAttendanceRegisterDao classAttendanceRegisterDao);
 	/**
 	 * 班级考勤日报。
 	 * @param grade
@@ -80,4 +89,28 @@ public interface IAttendanceService extends IDataService<AttendanceInfo> {
 	 * 	考勤状态报表。
 	 * */
 	List<AbnAttendanceStatusReport> attendanceStatusReport(String grade,String classId,String studentName, String start,String end);
+	/**
+	 * 班级全勤登记。
+	 * @param classId
+	 * 	班级ID。
+	 * @param date
+	 * 	日期。
+	 * @param segment
+	 * 	考勤段。
+	 * @param user
+	 *  用户信息。
+	 * */
+	boolean attendanceRegister(String classId, String date, Integer segment,UserInfo user);
+	/**
+	 * 加载班级全勤登记信息。
+	 * @param classId
+	 * 	班级ID。
+	 * @param date
+	 * 	日期。
+	 * @param segment
+	 * 	考勤段。
+	 * @return
+	 * 	班级全勤登记信息。
+	 * */
+	AttendanceRegisterInfo loadAttendanceRegister(String classId, String date, Integer segment);
 }

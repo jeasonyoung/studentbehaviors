@@ -12,10 +12,12 @@ import java.util.UUID;
 import org.springframework.beans.BeanUtils;
 
 import ipower.model.DataGrid;
+import ipower.studentbehaviors.dao.IClassAttendanceRegisterDao;
 import ipower.studentbehaviors.dao.IClassDao;
 import ipower.studentbehaviors.dao.IStudentAbnAttendanceDao;
 import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.domain.Class;
+import ipower.studentbehaviors.domain.ClassAttendanceRegister;
 import ipower.studentbehaviors.domain.Student;
 import ipower.studentbehaviors.domain.StudentAbnAttendance;
 import ipower.studentbehaviors.modal.AbnAttendanceInfo;
@@ -23,7 +25,9 @@ import ipower.studentbehaviors.modal.AbnAttendanceStatistics;
 import ipower.studentbehaviors.modal.AbnAttendanceStatusReport;
 import ipower.studentbehaviors.modal.AbnAttendanceTotal;
 import ipower.studentbehaviors.modal.AttendanceInfo;
+import ipower.studentbehaviors.modal.AttendanceRegisterInfo;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
+import ipower.studentbehaviors.modal.UserInfo;
 import ipower.studentbehaviors.service.IAttendanceService;
 /**
  * 学生考勤服务实现类。
@@ -34,6 +38,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
 	private IStudentAbnAttendanceDao studentAbnAttendanceDao;
 	private IStudentDao studentDao;
 	private IClassDao classDao;
+	private IClassAttendanceRegisterDao classAttendanceRegisterDao;
 	
 	@Override
 	public void setStudentAbnAttendanceDao(IStudentAbnAttendanceDao studentAbnAttendanceDao) {
@@ -48,6 +53,11 @@ public class AttendanceServiceImpl implements IAttendanceService {
 	@Override
 	public void setClassDao(IClassDao classDao) {
 		this.classDao = classDao;
+	}
+	
+	@Override
+	public void setClassAttendanceRegisterDao(IClassAttendanceRegisterDao classAttendanceRegisterDao) {
+		this.classAttendanceRegisterDao = classAttendanceRegisterDao;
 	}
 
 	@Override
@@ -375,5 +385,41 @@ public class AttendanceServiceImpl implements IAttendanceService {
 			}
 		}
 		return rows;
+	}
+
+	@Override
+	public synchronized boolean attendanceRegister(String classId, String date, Integer segment, UserInfo user) {
+		if(classId == null || classId.trim().isEmpty()) return false;
+		if(date == null || date.trim().isEmpty()) return false;
+		ClassAttendanceRegister data = this.classAttendanceRegisterDao.loadAttendanceRegister(classId, date, segment);
+		boolean isAdded = false;
+		if(data == null){
+			data = new ClassAttendanceRegister();
+			data.setId(UUID.randomUUID().toString());
+			isAdded = true;
+		}
+		if(classId != null && (data.getClazz() == null || !data.getClazz().getId().equalsIgnoreCase(classId))){
+			Class clazz = this.classDao.load(Class.class, classId);
+			if(clazz == null) return false;
+			data.setClazz(clazz);
+		}
+		data.setDate(date);
+		data.setSegment(segment);
+		if(user != null){
+			data.setCreateUserId(user.getTeacherId());
+			data.setCreateUserName(user.getTeacherName());
+		}
+		data.setCreateTime(new Date());
+		if(isAdded) this.classAttendanceRegisterDao.save(data);
+		return true;
+	}
+
+	@Override
+	public synchronized AttendanceRegisterInfo loadAttendanceRegister(String classId, String date, Integer segment) {
+		ClassAttendanceRegister data = this.classAttendanceRegisterDao.loadAttendanceRegister(classId, date, segment);
+		if(data == null) return new AttendanceRegisterInfo();
+		AttendanceRegisterInfo info = new AttendanceRegisterInfo();
+		BeanUtils.copyProperties(data, info);
+		return info;
 	}
 }
