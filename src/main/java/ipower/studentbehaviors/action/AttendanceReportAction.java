@@ -18,7 +18,8 @@ import ipower.utils.DateUtil;
  * */
 public class AttendanceReportAction extends BaseAction {
 	private IAttendanceService service;
-	private String grade,date,start,end;
+	private String grade,date,start,end,classId,studentName;
+	private SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
 	/**
 	 * 设置考勤服务接口。
 	 * @param attendanceService
@@ -34,6 +35,22 @@ public class AttendanceReportAction extends BaseAction {
 	 * */
 	public void setGrade(String grade) {
 		this.grade = grade;
+	}
+	/**
+	 * 设置班级ID。
+	 * @param classId
+	 * 	班级ID。
+	 * */
+	public void setClassId(String classId) {
+		this.classId = classId;
+	}
+	/**
+	 * 设置学生姓名。
+	 * @param studentName
+	 * 	学生姓名。
+	 * */
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 	/**
 	 * 设置日期。
@@ -73,12 +90,18 @@ public class AttendanceReportAction extends BaseAction {
 		return "weekReportList";
 	}
 	/**
+	 * 考勤异常状态列表。
+	 * */
+	public String statusReportList(){
+		return "statusReportList";
+	}
+	/**
 	 * 班级日报。
 	 * @throws IOException 
 	 * */
 	public void classDailyReport() throws IOException{
 		if(this.date == null || this.date.trim().isEmpty()){
-			this.date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			this.date =  this.dtFormat.format(new Date());
 		}
 		DataGrid<ClassAttendanceReport> grid = new DataGrid<>();
 		List<ClassAttendanceReport> rows = this.service.classDailyReport(this.grade, this.date);
@@ -92,14 +115,13 @@ public class AttendanceReportAction extends BaseAction {
 	 * @throws IOException 
 	 * */
 	public void week() throws ParseException, IOException{
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		if(this.date == null || this.date.trim().isEmpty()){
-			this.date = format.format(new Date());
+			this.date = this.dtFormat.format(new Date());
 		}
-		Date dt_date = format.parse(this.date),
+		Date dt_date = this.dtFormat.parse(this.date),
 			  dt_start = DateUtil.firstDayOfWeek(dt_date),
 			  dt_end = DateUtil.lastDayOfWeek(dt_date);
-		String[] result = { format.format(dt_start),format.format(dt_end)};
+		String[] result = { this.dtFormat.format(dt_start),this.dtFormat.format(dt_end)};
 		this.writeJson(result);
 	}
 	/**
@@ -107,12 +129,11 @@ public class AttendanceReportAction extends BaseAction {
 	 * @throws IOException 
 	 * */
 	public void classWeekReport() throws IOException{
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		if(this.start == null || this.start.trim().isEmpty()){
-			this.start = format.format(DateUtil.firstDayOfWeek(new Date()));
+			this.start = this.dtFormat.format(DateUtil.firstDayOfWeek(new Date()));
 		}
 		if(this.end == null || this.end.trim().isEmpty()){
-			this.end = format.format(DateUtil.lastDayOfWeek(new Date()));
+			this.end = this.dtFormat.format(DateUtil.lastDayOfWeek(new Date()));
 		}
 		DataGrid<ClassAttendanceReport> grid = new DataGrid<>();
 		List<ClassAttendanceReport> rows = this.service.classWeekReport(this.grade, this.start,this.end);
@@ -120,4 +141,17 @@ public class AttendanceReportAction extends BaseAction {
 		grid.setTotal((long)rows.size());
 		this.writeJson(grid);
 	}
+	/**
+	 * 考勤异常状态。
+	 * @throws IOException 
+	 * */
+	public void statusReport() throws IOException{
+		if(this.start == null || this.start.trim().isEmpty()){
+			this.start = this.dtFormat.format(DateUtil.firstDayOfWeek(new Date()));
+		}
+		if(this.end == null || this.end.trim().isEmpty()){
+			this.end = this.dtFormat.format(DateUtil.lastDayOfWeek(new Date()));
+		}
+		this.writeJson( this.service.attendanceStatusReport(this.grade, this.classId, this.studentName, this.start, this.end));
+ 	}
 }

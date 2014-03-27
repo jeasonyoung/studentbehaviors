@@ -3,7 +3,7 @@
 <!--
 $(function(){
 	//grade
-	var dd_grade = $("#reports_class_week_list_dg_toolbar input[name='grade']").combobox({
+	var dd_grade = $("#reports_student_abn_list_dg_toolbar input[name='grade']").combobox({
 		valueField:"value",
 		textField:"value",
 		data:[{value:"一年级"},{value:"二年级"},{value:"三年级"},{value:"四年级"},{value:"五年级"},{value:"六年级"}],
@@ -15,7 +15,7 @@ $(function(){
 		}
 	});
 	//class
-	var dd_class = $("#reports_class_week_list_dg_toolbar input[name=classId]").combobox({
+	var dd_class = $("#reports_student_abn_list_dg_toolbar input[name=classId]").combobox({
 		url:"${pageContext.request.contextPath}/settings/classes!all.action",
 		valueField:"id",
 		textField:"name",
@@ -88,22 +88,22 @@ $(function(){
 			field:"createUserName",
 			width:10
 		}]],
-		toolbar:"#reports_class_week_list_dg_toolbar"
+		toolbar:"#reports_student_abn_list_dg_toolbar"
 	});
 	//search
 	reports_student_abn_list_dg_search = function(){
 		dg.datagrid("load",{
 			grade:dd_grade.combobox("getValue"),
 			classId:dd_class.combobox("getValue"),
-			studentName:$("#reports_class_week_list_dg_toolbar input[name='studentName']").val(),
-			date:$("#reports_class_week_list_dg_toolbar input[name='date']").val()
+			studentName:$("#reports_student_abn_list_dg_toolbar input[name='studentName']").val(),
+			date:$("#reports_student_abn_list_dg_toolbar input[name='date']").val()
 		});
 	};
 });
 //-->
 </script>
 <table id="reports_student_abn_list_dg"></table>
-<div id="reports_class_week_list_dg_toolbar" style="height:auto;">
+<div id="reports_student_abn_list_dg_toolbar" style="height:auto;">
 	<span>日期：</span>
 	<input name="date" type="text" class="easyui-datebox" style="width:128px;"/>
 

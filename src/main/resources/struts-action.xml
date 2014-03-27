@@ -72,8 +72,12 @@
 		</action>
 		<!--考勤报表 -->
 		<action name="report" class="AttendanceReportAction">
+			<!--考勤班级日报 -->
 			<result name="dailyReportList">/WEB-INF/page/reports/class_daily_List.jsp</result>
+			<!--考勤班级周报 -->
 			<result name="weekReportList">/WEB-INF/page/reports/class_week_List.jsp</result>
+			<!--考勤状态周报 -->
+			<result name="statusReportList">/WEB-INF/page/reports/status_week_List.jsp</result>
 		</action>
 		<!--学生报表 -->
 		<action name="stureport" class="StudentReportAction">

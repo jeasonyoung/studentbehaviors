@@ -7,6 +7,7 @@ import ipower.studentbehaviors.dao.IClassDao;
 import ipower.studentbehaviors.dao.IStudentAbnAttendanceDao;
 import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.modal.AbnAttendanceInfo;
+import ipower.studentbehaviors.modal.AbnAttendanceStatusReport;
 import ipower.studentbehaviors.modal.AttendanceInfo;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
 /**
@@ -63,4 +64,20 @@ public interface IAttendanceService extends IDataService<AttendanceInfo> {
 	 *  查询结果。
 	 * */
 	DataGrid<AbnAttendanceInfo> students(AbnAttendanceInfo info);
+	/**
+	 * 考勤状态报表。
+	 * @param grade
+	 * 	年级。
+	 * @param classId
+	 * 班级ID。
+	 * @param studentName
+	 * 学生。
+	 * @param start
+	 * 开始时间。
+	 * @param end
+	 * 结束时间。
+	 * @return 
+	 * 	考勤状态报表。
+	 * */
+	List<AbnAttendanceStatusReport> attendanceStatusReport(String grade,String classId,String studentName, String start,String end);
 }

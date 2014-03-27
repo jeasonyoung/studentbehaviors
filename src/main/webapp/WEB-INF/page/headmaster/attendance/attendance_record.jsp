@@ -72,7 +72,7 @@ $(function(){
 			align:"center",
 			sortable:true,
 			formatter:function(value,row,index){
-				if(value == 0) return "";
+				if(value == 0) return "全勤";
 				if(value == 1) return "迟到";
 				if(value == 2) return "病假";
 				if(value == 3) return "事假";

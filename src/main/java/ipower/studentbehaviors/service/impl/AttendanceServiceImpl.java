@@ -20,6 +20,7 @@ import ipower.studentbehaviors.domain.Student;
 import ipower.studentbehaviors.domain.StudentAbnAttendance;
 import ipower.studentbehaviors.modal.AbnAttendanceInfo;
 import ipower.studentbehaviors.modal.AbnAttendanceStatistics;
+import ipower.studentbehaviors.modal.AbnAttendanceStatusReport;
 import ipower.studentbehaviors.modal.AbnAttendanceTotal;
 import ipower.studentbehaviors.modal.AttendanceInfo;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
@@ -275,7 +276,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
 			hql += " and (s.student.clazz.id = :classId) ";
 			parameters.put("classId", info.getClassId());
 		}
-		if(info.getStudentName() != null && !info.getStudentName().isEmpty()){
+		if(info.getStudentName() != null && !info.getStudentName().trim().isEmpty()){
 			hql += " and (s.student.code like :studentName or s.student.name like :studentName) ";
 			parameters.put("studentName", "%"  + info.getStudentName() + "%");
 		}
@@ -323,5 +324,56 @@ public class AttendanceServiceImpl implements IAttendanceService {
 		grid.setTotal((long)rows.size());
 		grid.setRows(rows);
 		return grid;
+	}
+
+	@Override
+	public  List<AbnAttendanceStatusReport> attendanceStatusReport(String grade, String classId, String studentName, String start, String end) {
+		String hql = "from StudentAbnAttendance s where 1=1 ";
+		//where
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		if(grade != null && !grade.trim().isEmpty()){
+			hql += " and (s.student.clazz.grade = :grade) ";
+			parameters.put("grade", grade);
+		}
+		if(classId != null && !classId.trim().isEmpty()){
+			hql += " and (s.student.clazz.id = :classId) ";
+			parameters.put("classId", classId);
+		}
+		if(studentName != null && !studentName.trim().isEmpty()){
+			hql += " and (s.student.code like :studentName or s.student.name like :studentName) ";
+			parameters.put("studentName", "%"  + studentName + "%");
+		}
+		if(start != null && !start.trim().isEmpty()){
+			hql += " and (s.date >= :start) ";
+			parameters.put("start", start);
+		}
+		if(end != null && !end.trim().isEmpty()){
+			hql += " and (s.date <= :end)";
+			parameters.put("end", end);
+		}
+		List<AbnAttendanceStatusReport> rows = new ArrayList<>();
+		List<StudentAbnAttendance> list =  this.studentAbnAttendanceDao.find(hql, parameters, null, null);
+		int total = list.size();
+		Map<Integer,AbnAttendanceStatusReport> cache = Collections.synchronizedMap(new HashMap<Integer,AbnAttendanceStatusReport>());
+		for(int i = 0; i < list.size(); i ++){
+			StudentAbnAttendance data = list.get(i);
+			if(data == null) continue;
+			AbnAttendanceStatusReport report = cache.get(data.getStatus());
+			if(report == null){
+				report = new AbnAttendanceStatusReport();
+				report.setTotal(total);
+				report.setStatus(data.getStatus());
+				report.setCount(0);
+			}
+			report.setCount(report.getCount() + 1);
+			cache.put(data.getStatus(), report);
+		}
+		for(AbnAttendanceStatusReport info: cache.values()){
+			if(info != null){
+				info.computerShare();
+				rows.add(info);
+			}
+		}
+		return rows;
 	}
 }
