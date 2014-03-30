@@ -2,7 +2,21 @@
 <script type="text/javascript">
 <!--
 $(function(){
-	$("#settings_usersedit_form input[name=teacherId]").combobox({
+	//roles
+	$("#settings_usersedit_form input[name='role']").combobox({
+		required:true,
+		valueField:"value",
+		textField:"value",
+		data:[{
+			value:"admin"
+		},{
+			value:"headmaster"
+		},{
+			value:"view"
+		}]
+	});
+	//teachers
+	$("#settings_usersedit_form input[name='teacherId']").combobox({
 		url:"${pageContext.request.contextPath}/settings/teachers!all.action",
 		required:true,
 		valueField:"id",
@@ -18,6 +32,6 @@ $(function(){
 	</div>
 	<div style="float:left;margin-top:2px;width:250px;">
 		<span style="float:left;width:65px;text-align:right;padding-top:2px;">用户角色：</span>
-		<input type="text" name="role" style="width:80px;"/>
+		<input type="text" name="role" style="width:128px;"/>
 	</div>
 </form>

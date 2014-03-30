@@ -6,10 +6,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import com.thoughtworks.xstream.XStream;
+
 import ipower.model.DataGrid;
+import ipower.studentbehaviors.modal.AttendanceRecord;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
 import ipower.studentbehaviors.service.IAttendanceService;
 import ipower.utils.DateUtil;
+import ipower.utils.XmlUtil;
 
 /**
  * 考勤统计Action。
@@ -19,6 +30,7 @@ import ipower.utils.DateUtil;
 public class AttendanceReportAction extends BaseAction {
 	private IAttendanceService service;
 	private String grade,date,start,end,classId,studentName;
+	private Integer segment;
 	private SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd");
 	/**
 	 * 设置考勤服务接口。
@@ -51,6 +63,14 @@ public class AttendanceReportAction extends BaseAction {
 	 * */
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
+	}
+	/**
+	 * 设置考勤段。
+	 * @param segment
+	 * 	考勤段。
+	 * */
+	public void setSegment(Integer segment) {
+		this.segment = segment;
 	}
 	/**
 	 * 设置日期。
@@ -154,4 +174,30 @@ public class AttendanceReportAction extends BaseAction {
 		}
 		this.writeJson( this.service.attendanceStatusReport(this.grade, this.classId, this.studentName, this.start, this.end));
  	}
+	/**
+	 * 加载考勤记录。
+	 * */
+	private List<AttendanceRecord> loadAttendanceRecords(){
+		return this.service.loadAttendanceRecords(this.date, this.segment);
+	}
+	/**
+	 * 考勤记录。
+	 * */
+	public void attendanceRecords() throws IOException{
+		this.writeJson(this.loadAttendanceRecords());
+	}
+	/**
+	 * 考勤记录XML。
+	 * */
+	public void records(){
+		List<AttendanceRecord> list = this.loadAttendanceRecords();
+		XStream xStream = new XStream();
+		xStream.alias("xml", list.getClass());
+			try {
+				Document document = XmlUtil.loadDocument(xStream.toXML(list)); 
+				this.writeXml(document);
+			} catch (IOException | ParserConfigurationException | SAXException | TransformerFactoryConfigurationError | TransformerException e) {
+				e.printStackTrace();
+			}
+	}
 }

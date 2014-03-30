@@ -2,6 +2,7 @@ package ipower.studentbehaviors.action;
 import java.io.IOException;
 
 import ipower.studentbehaviors.modal.AttendanceInfo;
+import ipower.studentbehaviors.modal.AttendanceRegisterInfo;
 import ipower.studentbehaviors.service.IAttendanceService;
 /**
  * 学生考勤Action。
@@ -40,7 +41,9 @@ public class AttendanceAction extends BaseDataAction<AttendanceInfo> {
 	 * 加载班级全勤登记信息。
 	 * */
 	public void loadregister() throws IOException{
-		 this.writeJson(((IAttendanceService)this.service).loadAttendanceRegister(this.getModel().getClassId(), this.getModel().getDate(), this.getModel().getSegment()));
+		AttendanceRegisterInfo info = ((IAttendanceService)this.service).loadAttendanceRegister(this.getModel().getClassId(), this.getModel().getDate(), this.getModel().getSegment());
+		if(info == null) info = new AttendanceRegisterInfo();
+		 this.writeJson(info);
 	}
 	
 	@Override

@@ -10,6 +10,7 @@ import ipower.studentbehaviors.dao.IStudentDao;
 import ipower.studentbehaviors.modal.AbnAttendanceInfo;
 import ipower.studentbehaviors.modal.AbnAttendanceStatusReport;
 import ipower.studentbehaviors.modal.AttendanceInfo;
+import ipower.studentbehaviors.modal.AttendanceRecord;
 import ipower.studentbehaviors.modal.AttendanceRegisterInfo;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
 import ipower.studentbehaviors.modal.UserInfo;
@@ -113,4 +114,14 @@ public interface IAttendanceService extends IDataService<AttendanceInfo> {
 	 * 	班级全勤登记信息。
 	 * */
 	AttendanceRegisterInfo loadAttendanceRegister(String classId, String date, Integer segment);
+	/**
+	 * 加载考勤记录。
+	 * @param date
+	 * 日期。
+	 * @param segment
+	 * 考勤段。
+	 * @return 
+	 * 考勤记录数据。
+	 * */
+	List<AttendanceRecord> loadAttendanceRecords(String date,Integer segment);
 }

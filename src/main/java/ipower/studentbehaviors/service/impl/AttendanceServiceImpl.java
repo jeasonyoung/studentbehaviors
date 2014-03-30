@@ -1,5 +1,7 @@
 package ipower.studentbehaviors.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,10 +27,12 @@ import ipower.studentbehaviors.modal.AbnAttendanceStatistics;
 import ipower.studentbehaviors.modal.AbnAttendanceStatusReport;
 import ipower.studentbehaviors.modal.AbnAttendanceTotal;
 import ipower.studentbehaviors.modal.AttendanceInfo;
+import ipower.studentbehaviors.modal.AttendanceRecord;
 import ipower.studentbehaviors.modal.AttendanceRegisterInfo;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
 import ipower.studentbehaviors.modal.UserInfo;
 import ipower.studentbehaviors.service.IAttendanceService;
+import ipower.utils.DateUtil;
 /**
  * 学生考勤服务实现类。
  * @author yangyong.
@@ -417,9 +421,73 @@ public class AttendanceServiceImpl implements IAttendanceService {
 	@Override
 	public synchronized AttendanceRegisterInfo loadAttendanceRegister(String classId, String date, Integer segment) {
 		ClassAttendanceRegister data = this.classAttendanceRegisterDao.loadAttendanceRegister(classId, date, segment);
-		if(data == null) return new AttendanceRegisterInfo();
+		if(data == null) return null;
 		AttendanceRegisterInfo info = new AttendanceRegisterInfo();
 		BeanUtils.copyProperties(data, info);
 		return info;
+	}
+	
+	private List<StudentAbnAttendance> loadAbnAttendances(String classId,String date,Integer segment){
+		String abn_hql = "from StudentAbnAttendance s where s.date = :date and s.segment = :segment and  s.student.clazz.id = :classId ";
+		
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("date", date);
+		parameters.put("segment", segment); 
+		parameters.put("classId", classId);
+			
+		return this.studentAbnAttendanceDao.find(abn_hql, parameters, null, null);
+	}
+
+	@Override
+	public List<AttendanceRecord> loadAttendanceRecords(String date, Integer segment) {
+		List<AttendanceRecord> records = new ArrayList<>();
+		String weekName = null;
+		if(date != null && !date.trim().isEmpty()){
+			try {
+				weekName = DateUtil.DayOfWeekText(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+			} catch (ParseException e) {
+				weekName = DateUtil.DayOfWeekText(new Date());
+				e.printStackTrace();
+			}
+		}
+		List<Class> classes =  this.classDao.find("from Class c where c.status = 1  order by c.joinYear desc,c.name", null, null, null);
+		for(int i = 0; i < classes.size(); i++){
+			Class c = classes.get(i);
+			if(c == null) continue;
+			AttendanceRecord record = new AttendanceRecord();
+			record.setClassName(c.getName());
+			record.setGrade(c.getGrade());
+	        record.setWeek(weekName);
+			record.setTotal(this.loadClassStudentCount(c.getId()));
+			record.setSegment(segment);
+			List<StudentAbnAttendance> absList = this.loadAbnAttendances(c.getId(), date, segment);
+			if(absList == null || absList.size() == 0){
+				record.setStatus( this.loadAttendanceRegister(c.getId(), date, segment) ==  null ? "未上报" :"全勤");
+			}else {
+				 record.setStatus("缺勤");
+				 for(int j = 0; j < absList.size(); j++){
+					 StudentAbnAttendance abn = absList.get(j);
+					 if(abn == null) continue;
+					 if(abn.getStatus() == 1){
+						 record.setLate(record.getLate() + 1);
+						 continue;
+					 }
+					 if(abn.getStatus() == 2){
+						 record.setDisease(record.getDisease() + 1);
+						 continue;
+					 }
+					 if(abn.getStatus() == 3){
+						 record.setLeave(record.getLeave() + 1);
+						 continue;
+					 }
+					 if(abn.getStatus() == 4){
+						 record.setOther(record.getOther() + 1);
+						 continue;
+					 }
+				 }
+			}
+			records.add(record);
+		}
+		return records;
 	}
 }
