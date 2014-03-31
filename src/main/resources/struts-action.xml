@@ -23,6 +23,7 @@
 			<result name="leftmenu">/WEB-INF/page/index/index_leftmenu.jsp</result>
 			<result name="workspace">/WEB-INF/page/index/index_workspace.jsp</result>
 			<result name="footer">/WEB-INF/page/index/index_footer.jsp</result>
+			<result name="center">/WEB-INF/page/index/index_center.jsp</result>
 		</action>
 		<!--菜单数据 -->
 		<action name="menu" method="tree" class="MenuAction"/>

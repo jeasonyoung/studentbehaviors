@@ -79,11 +79,11 @@ $(function(){
 				}
 			}
 		}
-	}
+	};
 });
 </script>
 <div id="layout_workspace_tabs">
-	<div title="首页">hello word!xxx</div>
+	<div title="首页" href="${pageContext.request.contextPath}/index!center.action"></div>
 </div>
 <div id="layout_workspace_tabsMenu" style="width:120px;display:none;">
 	<div type="refresh">刷新</div>

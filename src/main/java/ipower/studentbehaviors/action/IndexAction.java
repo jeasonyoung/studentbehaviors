@@ -82,4 +82,10 @@ public class IndexAction extends BaseAction {
 	public String footer(){
 		return "footer";
 	}
+	/**
+	 * 中间
+	 * */
+	public String center(){
+		return "center";
+	}
 }

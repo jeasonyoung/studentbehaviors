@@ -190,10 +190,11 @@ public class AttendanceReportAction extends BaseAction {
 	 * 考勤记录XML。
 	 * */
 	public void records(){
-		List<AttendanceRecord> list = this.loadAttendanceRecords();
-		XStream xStream = new XStream();
-		xStream.alias("xml", list.getClass());
 			try {
+				List<AttendanceRecord> list = this.loadAttendanceRecords();
+				XStream xStream = new XStream();
+				xStream.alias("xml", list.getClass());
+				xStream.alias("item", new AttendanceRecord().getClass());
 				Document document = XmlUtil.loadDocument(xStream.toXML(list)); 
 				this.writeXml(document);
 			} catch (IOException | ParserConfigurationException | SAXException | TransformerFactoryConfigurationError | TransformerException e) {
