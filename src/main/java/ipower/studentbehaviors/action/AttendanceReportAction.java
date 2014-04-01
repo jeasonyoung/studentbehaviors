@@ -1,17 +1,14 @@
 package ipower.studentbehaviors.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.ServletActionContext;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -20,8 +17,6 @@ import ipower.studentbehaviors.modal.AttendanceRecord;
 import ipower.studentbehaviors.modal.ClassAttendanceReport;
 import ipower.studentbehaviors.service.IAttendanceService;
 import ipower.utils.DateUtil;
-import ipower.utils.XmlUtil;
-
 /**
  * 考勤统计Action。
  * @author yangyong.
@@ -188,17 +183,26 @@ public class AttendanceReportAction extends BaseAction {
 	}
 	/**
 	 * 考勤记录XML。
+	 * @throws IOException 
 	 * */
-	public void records(){
+	public void records() throws IOException{
 			try {
 				List<AttendanceRecord> list = this.loadAttendanceRecords();
 				XStream xStream = new XStream();
 				xStream.alias("xml", list.getClass());
 				xStream.alias("item", new AttendanceRecord().getClass());
-				Document document = XmlUtil.loadDocument(xStream.toXML(list)); 
-				this.writeXml(document);
-			} catch (IOException | ParserConfigurationException | SAXException | TransformerFactoryConfigurationError | TransformerException e) {
+				
+				HttpServletResponse response =ServletActionContext.getResponse();
+				response.setContentType("text/xml;charset=utf-8");
+				
+				PrintWriter writer = response.getWriter();	
+				writer.write(xStream.toXML(list));
+				writer.flush();
+				writer.close();
+				
+			} catch (IOException e) {
 				e.printStackTrace();
+				this.writeJson(e);
 			}
 	}
 }
