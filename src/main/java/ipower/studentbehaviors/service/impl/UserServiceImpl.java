@@ -180,10 +180,11 @@ public class UserServiceImpl extends DataServiceImpl<User,UserInfo> implements I
 				info.setTeacherName(u.getTeacher().getName());
 			}
 			if(info == null)continue;
-			if(info.getRole() != null && !info.getRole().trim().isEmpty()){
-				info.setRole(info.getRole() + ",");
+			if(info.getRole() == null || info.getRole().trim().isEmpty()){
+				info.setRole(u.getRole());
+			}else {
+				info.setRole(info.getRole() + "," + u.getRole());
 			}
-			info.setRole(info.getRole() + u.getRole());
 		}
 		return info;
 	}

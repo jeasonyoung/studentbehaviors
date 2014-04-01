@@ -10,6 +10,9 @@
 	<bean name="MenuAction" class="ipower.studentbehaviors.action.MenuAction" scope="prototype">
 		<property name="menuService" ref="menuService"/>
 		<property name="systemId" value="${current_systemId}"/>
+		<property name="roleAdmin" value="${role_admin_menu}"/>
+		<property name="roleHeadmaster" value="${role_headmaster_menu}"/>
+		<property name="roleView" value="${role_view_menu}"/>
 	</bean>
 	<!--druid -->
 	<bean name="DruidAction" class="ipower.studentbehaviors.action.DataSourceAction" scope="prototype"/>

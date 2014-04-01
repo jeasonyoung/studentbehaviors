@@ -88,7 +88,7 @@ public class AuthenticationInterceptor extends AbstractInterceptor {
 			logger.info("未获取身份信息，跳转至登录Action：" + BaseAction.LOGIN);
 			return BaseAction.LOGIN;
 		}
-		logger.info("身份验证成功，准备注入用户信息[" + user.getTeacherName()+ "]");
+		logger.info("身份验证成功，准备注入用户信息[" + user.getTeacherName()+ "]role:"+ user.getRole());
 		IUserAware userAware = (IUserAware)invocation.getAction();
 		if(userAware != null){
 			logger.info("注入用户信息成功！");
